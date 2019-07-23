@@ -19,13 +19,13 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 	private UserDao udao;
 	private RealEstateDao rdao;
 	private PictureDao pdao;
-	
-	public SearchDaoJDBC () {
+
+	public SearchDaoJDBC() {
 		udao = new UserDaoJDBC();
 		rdao = new RealEstateDaoJDBC();
 		pdao = new PictureDaoJDBC();
 	}
-	
+
 	@Override
 	public List<Advertisement> search(SearchCriteria sc) {
 		List<Advertisement> lads = new ArrayList<>();
@@ -36,14 +36,17 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 			" JOIN real_estate r ON a.real_estate_id = r.id " +
 			" JOIN allproperties ap ON r.id = ap.id " +
 			" JOIN city c ON r.city_id = c.id " +
-			" WHERE c.id = " + sc.getCityId() +
-			" AND a.status = 'Validated'";
+			" WHERE r.available = 'Y'" + 
+			" AND a.status = 'Validated' ";
 			
+			if (sc.getCityId() != 0) {
+				req += " AND c.id = " + sc.getCityId();
+			}
 			if (sc.getQuery() != null) {
-				req += " AND a.transaction_type = '" + sc.getQuery() + "'";
+				req += " AND ( a.description LIKE '%" + sc.getQuery() + "%' OR a.title LIKE '%" + sc.getQuery() + "%' )";
 			}
 			if (sc.getType() != null) {
-				req += " AND ap.realtype = '" + sc.getType() + "'";
+				req += " AND ap.transaction_type = '" + sc.getType() + "'";
 			}
 			if (sc.getAreaMin() > 0) {
 				req += " AND r.area >= " + sc.getAreaMin();
@@ -57,7 +60,7 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 			if (sc.getPriceMax() > 0) {
 				req += " AND r.price <= " + sc.getPriceMax();
 			}
-			
+
 			ResultSet rs = st.executeQuery(req);
 					
 			while (rs.next()) {
@@ -70,13 +73,12 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 
 			}
 
-		} catch (SQLException e) {
+		} catch(SQLException e) {
 			System.out.println("SearchDaoJDBC read error : " + e.getLocalizedMessage());
 		}
 
-		return lads;
+	return lads;
 
-	}
+}
 
-		
 }

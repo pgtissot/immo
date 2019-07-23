@@ -39,6 +39,7 @@ public class AdvertisementDaoJDBC extends AbstractDaoJDBC implements Advertiseme
 			" JOIN real_estate r ON a.real_estate_id = r.id " + 
 			" JOIN allproperties ap ON r.id = ap.id " +
 			" WHERE a.id = " + id + 
+			" AND r.available = 'Y'" +
 			" AND a.status = 'Validated'";
 			
 			ResultSet rs = st.executeQuery(req);

@@ -4,7 +4,7 @@ public class SearchCriteria {
 	
 	private int cityId;
 	private String query;
-	private String type;
+	private TransactionType type;
 	private int priceMin;
 	private int priceMax;
 	private int areaMin;
@@ -26,10 +26,10 @@ public class SearchCriteria {
 	public void setQuery(String query) {
 		this.query = query;
 	}
-	public String getType() {
+	public TransactionType getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(TransactionType type) {
 		this.type = type;
 	}
 	public int getPriceMin() {
