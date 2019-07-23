@@ -42,7 +42,7 @@ public class TestDao {
 //		udao.delete("rene.goscinny@polite.fr");
 //		udao.delete("achille.talon@polite.fr");
 		
-		SearchCriteria sc = new SearchCriteria();
+/*		SearchCriteria sc = new SearchCriteria();
 		sc.setQuery("Rent");
 		sc.setType("Apartment");
 		sc.setCityId(2003);
@@ -52,9 +52,12 @@ public class TestDao {
 		List<Advertisement> lads = sdao.search(sc);
 		for (Advertisement a : lads)
 			System.out.println(a);
+*/
 
-//		User u = udao.authenticate(mod.getUsername(), mod.getPassword());
-//		System.out.println(u);
+		User u = udao.authenticate("pgthebest@blah.fr", "tractopelle");
+		System.out.println(u);
+		u = udao.authenticate(mod.getUsername(), mod.getPassword());
+		System.out.println(u);
 
 	}	
 }

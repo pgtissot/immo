@@ -14,17 +14,16 @@ public class UserMapper {
 	public static User resultToUser(ResultSet rs) throws Exception {
 		User user = null;
 		
-		// NO PASSWORD BACK IN THE OBJECT !
 		switch (rs.getString("user_type")) {
 		case "M" :
-			user = new Moderator(rs.getString("username"), "", rs.getString("name"));
+			user = new Moderator(rs.getString("username"), rs.getString("password"), rs.getString("name"));
 			break;
 		default :
-			user = new Advertiser(rs.getString("username"), "", rs.getString("title"),
+			user = new Advertiser(rs.getString("username"), rs.getString("password"), rs.getString("title"),
 					rs.getString("first_name"), rs.getString("last_name"), rs.getString("phone"));
 			break;
 		}
-		
+
 		return user;
 
 	}

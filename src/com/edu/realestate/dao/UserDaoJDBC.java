@@ -48,7 +48,7 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao {
 	}
 
 	@Override
-	public void update(User u) {
+	public void update(User user) {
 		try {
 			Statement st = getConnection().createStatement();
 			String req = null;
@@ -80,13 +80,10 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao {
 	public User authenticate(String username, String password) throws AuthenticationException {
 		User user = null;
 
-		try {
-			user = read(username);
-			if (user == null || !user.getPassword().equals(password))
-				throw new AuthenticationException("Erreur d'authentification.");
-		} catch (Exception e) {
-			throw new AuthenticationException("UserDaoJDBC authenticate error : problème");
-		}
+		user = read(username);
+
+		if (user == null || !user.getPassword().equals(password))
+			throw new AuthenticationException("Erreur d'authentification.");
 
 		return user;
 	}
