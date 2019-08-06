@@ -50,7 +50,7 @@ public class PictureDaoJDBC extends AbstractDaoJDBC implements PictureDao {
 	}
 
 	@Override
-	public List<Picture> getAllAdvPictures(Integer id) {
+	public List<Picture> getAllPicturesByAd(Integer id) {
 		List<Picture> list = new ArrayList<>();
 		Picture picture = null;
 

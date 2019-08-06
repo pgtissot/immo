@@ -7,8 +7,9 @@ public abstract class RealEstate {
 	protected short area;
 	protected boolean available;
 	protected City city;
-	
-	public RealEstate() {}
+
+	public RealEstate() {
+	}
 
 	public RealEstate(int id) {
 		this.id = id;
@@ -68,7 +69,7 @@ public abstract class RealEstate {
 			return true;
 		if (obj == null || !(obj instanceof RealEstate))
 			return false;
-		RealEstate re = (RealEstate)obj;
+		RealEstate re = (RealEstate) obj;
 		return this.id == re.getId();
 	}
 
@@ -84,9 +85,32 @@ public abstract class RealEstate {
 		return result;
 	}
 
+	public String getType() {
+		return this.getClass().getSimpleName();
+	}
+
+	public String toFrench() {
+		switch (getType()) {
+		case "House":
+			return "Maison";
+		case "Apartment":
+			return "Appartement";
+		case "Parking":
+			return "Parking";
+		case "Land":
+			return "Terrain";
+		case "CommercialProperty":
+			return "Commercial";
+		case "OtherProperty":
+			return "Autre";
+		default:
+			return "";
+		}
+	}
+
 	@Override
 	public String toString() {
-		return "id=" + id + ", price=" + price + ", area=" + area + ", available=" + available + ", city="	+ city;
+		return "id=" + id + ", price=" + price + ", area=" + area + ", available=" + available + ", city=" + city;
 	}
 
 }

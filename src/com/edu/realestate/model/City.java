@@ -64,12 +64,15 @@ public class City {
 		this.latitude = latitude;
 	}
 
+	public String getFullName() {
+		return name + " (" + postcode + ")";
+	}
+
+
 	@Override
 	public String toString() {
 		return "City [id=" + id + ", name=" + name + ", postcode=" + postcode + ", longitude=" + longitude
 				+ ", latitude=" + latitude + "]";
 	}
-
-
 
 }

@@ -9,4 +9,5 @@ public interface CityDao extends AbstractDao<City> {
 	List<City> listMatching(String comparator);
 	
 	List<City> listAll();
+	
 }

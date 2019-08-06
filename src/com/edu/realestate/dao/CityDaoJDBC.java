@@ -13,7 +13,7 @@ public class CityDaoJDBC extends AbstractDaoJDBC implements CityDao {
 	@Override
 	public void create(City element) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -22,10 +22,10 @@ public class CityDaoJDBC extends AbstractDaoJDBC implements CityDao {
 
 		try {
 			Statement st = getConnection().createStatement();
-			String req = "SELECT * FROM city WHERE id = "+ id;
+			String req = "SELECT * FROM city WHERE id = " + id;
 
 			ResultSet rs = st.executeQuery(req);
-		
+
 			if (rs.next()) {
 				city = new City();
 				city.setId(rs.getInt("id"));
@@ -44,19 +44,48 @@ public class CityDaoJDBC extends AbstractDaoJDBC implements CityDao {
 	@Override
 	public void update(City element) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void delete(Integer id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public List<City> listMatching(String comparator) {
-		// TODO Auto-generated method stub
-		return null;
+		List<City> list = new ArrayList<>();
+		
+		try {
+			Statement st = getConnection().createStatement();
+			String where = "WHERE ";
+			if (comparator.matches("[0-9]+")) {
+				where += "postcode LIKE '" + comparator + "%'";
+			} else {
+				where += "name LIKE '%" + comparator + "%'";
+			}
+
+			ResultSet rs = st.executeQuery("SELECT * FROM city "+ where + "ORDER BY name");
+
+			while (rs.next()) {
+				City city = new City();
+
+				city.setId(rs.getInt("id"));
+				city.setName(rs.getString("name"));
+				city.setPostcode(rs.getString("postcode"));
+				city.setLongitude(rs.getDouble("longitude"));
+				city.setLatitude(rs.getDouble("latitude"));
+
+				list.add(city);
+			}
+		} catch (SQLException e) {
+			System.out.println("CityDaoJDBC error : " + e.getLocalizedMessage());
+		}
+
+		
+		return list;
+
 	}
 
 	@Override
@@ -85,5 +114,4 @@ public class CityDaoJDBC extends AbstractDaoJDBC implements CityDao {
 		return list;
 	}
 
-	
 }

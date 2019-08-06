@@ -4,4 +4,6 @@ import com.edu.realestate.model.RealEstate;
 
 public interface RealEstateDao extends AbstractDao<RealEstate> {
 
+	int countRealEstates();
+
 }

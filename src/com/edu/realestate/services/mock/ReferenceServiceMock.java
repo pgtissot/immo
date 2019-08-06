@@ -2,6 +2,7 @@ package com.edu.realestate.services.mock;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.edu.realestate.exceptions.RealEstateException;
 import com.edu.realestate.model.Advertisement;
@@ -31,6 +32,11 @@ public class ReferenceServiceMock implements ReferenceService {
 
 	@Override
 	public List<Advertisement> findAdsByCriteria(SearchCriteria criteria) throws RealEstateException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Map<String, Integer> getAdsData() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -9,18 +9,20 @@ public class TestUserDao {
 		UserDao udao = new UserDaoJDBC();
 
 		Moderator mod = new Moderator("rene.goscinny@polite.fr", "NON", null);
-//		udao.create(mod);
+		udao.create(mod);
 
 		Advertiser adv = new Advertiser("achille.talon@polite.fr", "erudit", "M", "Achille", "Talon", "0123456789");
-//		udao.create(adv);
-		
-//		udao.delete("rene.goscinny@polite.fr");
-//		udao.delete("achille.talon@polite.fr");
-		
-		User u = udao.authenticate("pgthebest@blah.fr", "tractopelle");
-		System.out.println(u);
-		u = udao.authenticate(mod.getUsername(), mod.getPassword());
-		System.out.println(u);
+		udao.create(adv);
+
+		udao.update(new Moderator("rene.goscinny@polite.fr", "OUI", null));
+
+		udao.delete("rene.goscinny@polite.fr");
+		udao.delete("achille.talon@polite.fr");
+//		
+//		User u = udao.authenticate("pgthebest@blah.fr", "tractopelle");
+//		System.out.println(u);
+//		u = udao.authenticate(mod.getUsername(), mod.getPassword());
+//		System.out.println(u);
 
 	}	
 }

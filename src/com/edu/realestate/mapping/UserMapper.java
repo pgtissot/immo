@@ -31,7 +31,7 @@ public class UserMapper {
 	public static String usertoResult(User user) throws Exception {
 
 		String className = user.getClass().getSimpleName();
-		String req = "INSERT INTO user";
+		String req = "INSERT INTO user_data";
 		
 		List<String> fields = new ArrayList<>();
 		List<String> values = new ArrayList<>();

@@ -1,6 +1,7 @@
 package com.edu.realestate.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Advertisement {
@@ -93,7 +94,22 @@ public class Advertisement {
 	}
 
 	public RealEstate getRealEstate() {
-		return realEstate;
+		switch (realEstate.getType()) {
+		case "Apartment" :
+			return (Apartment) realEstate;
+		case "House" :
+			return (House) realEstate;
+		case "CommercialProperty" :
+			return (CommercialProperty) realEstate;
+		case "Land" :
+			return (Land) realEstate;
+		case "Parking" :
+			return (Parking) realEstate;
+		case "OtherProperty" :
+			return (OtherProperty) realEstate;
+		default :
+			return realEstate;
+		}
 	}
 
 	public void setRealEstate(RealEstate realEstate) {
@@ -122,6 +138,18 @@ public class Advertisement {
 
 	public void setRefusedComment(String refusedComment) {
 		this.refusedComment = refusedComment;
+	}
+	
+	public String transactionTypeToFrench() {
+		switch(transactionType) {
+		case Sale : return "Vente";
+		case Rent : return "Location";
+		default : return "";
+		}
+	}
+	
+	public String getFrenchReleaseDate() {
+		return releaseDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
 	}
 
 	@Override

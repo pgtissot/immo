@@ -51,9 +51,9 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao {
 	public void update(User user) {
 		try {
 			Statement st = getConnection().createStatement();
-			String req = null;
+			String req = "UPDATE user_data SET password='" + user.getPassword() + "'" +
+					" WHERE username='" + user.getUsername()+ "'";
 			st.executeUpdate(req);
-			// TODO because not done
 		} catch (SQLException e) {
 			System.out.println("UserDaoJDBC delete error : " + e.getLocalizedMessage());
 		}

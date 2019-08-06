@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import com.edu.realestate.exceptions.RealEstateException;
 import com.edu.realestate.model.AdStatus;
@@ -15,6 +16,7 @@ import com.edu.realestate.model.Picture;
 import com.edu.realestate.model.RealEstate;
 import com.edu.realestate.model.TransactionType;
 import com.edu.realestate.services.AdvertisementService;
+import com.edu.realestate.yelp.YelpResult;
 
 public class AdvertisementServiceMock implements AdvertisementService {
 
@@ -62,13 +64,25 @@ public class AdvertisementServiceMock implements AdvertisementService {
 	}
 
 	@Override
-	public List<Advertisement> findLastestAds() throws RealEstateException {
+	public List<Advertisement> findBestAds() throws RealEstateException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Advertisement> findBestAds() throws RealEstateException {
+	public Map<String, Integer> getAdsData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Advertisement> findLatestAds(int number) throws RealEstateException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public YelpResult findYelpData(City city) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
