@@ -15,7 +15,7 @@ public class AdvertisementMapper {
 
 	public static Advertisement resultToAdvertisement(ResultSet rs, Advertiser ad, RealEstate re, List<Picture> pictures) throws SQLException {
 		Advertisement advertisement = new Advertisement();
-		advertisement.setId(rs.getInt("id"));
+		advertisement.setId(rs.getInt("ad_id"));
 		advertisement.setTitle(rs.getString("title"));
 		advertisement.setStatus(AdStatus.valueOf(rs.getString("status")));
 		advertisement.setTransactionType(TransactionType.valueOf(rs.getString("transaction_type"))); 

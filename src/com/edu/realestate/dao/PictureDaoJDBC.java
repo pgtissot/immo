@@ -1,10 +1,15 @@
 package com.edu.realestate.dao;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.Scanner;
 
 import com.edu.realestate.model.Picture;
 
@@ -16,6 +21,7 @@ public class PictureDaoJDBC extends AbstractDaoJDBC implements PictureDao {
 
 	}
 
+	@SuppressWarnings("resource")
 	@Override
 	public Picture read(Integer id) {
 		Picture picture = null;
@@ -29,8 +35,27 @@ public class PictureDaoJDBC extends AbstractDaoJDBC implements PictureDao {
 			if (rs.next()) {
 				picture = new Picture();
 				picture.setId(rs.getInt("id"));
+				picture.setCodage(String.valueOf(rs.getInt("codage")));
+				
+				InputStream inputStream = rs.getBlob("content").getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				 
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+				    outputStream.write(buffer, 0, bytesRead);
+				}
+				 
+				byte[] imageBytes = outputStream.toByteArray();
+				 
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				 
+				inputStream.close();
+				outputStream.close();
+				
+				picture.setData(base64Image);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println("PictureDaoJDBC error : " + e.getLocalizedMessage());
 		}
 
@@ -56,7 +81,7 @@ public class PictureDaoJDBC extends AbstractDaoJDBC implements PictureDao {
 
 		try {
 			Statement st = getConnection().createStatement();
-			String req = String.format("SELECT * FROM advertisement a JOIN picture p ON a.id = p.advertisement_id WHERE a.id = %d", id);
+			String req = "SELECT p.* FROM picture p JOIN advertisement a ON a.id = p.advertisement_id WHERE a.id = " + id;
 			ResultSet rs = st.executeQuery(req);
 
 			while (rs.next()) {

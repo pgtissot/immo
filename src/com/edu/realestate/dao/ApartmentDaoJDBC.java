@@ -38,11 +38,11 @@ public class ApartmentDaoJDBC extends AbstractDaoJDBC implements ApartmentDao {
 				if (rs.getString("energy_level") != null)
 					apartment.setEnergyLevel(rs.getString("energy_level").charAt(0));
 				else
-					apartment.setEnergyLevel('N');
+					apartment.setEnergyLevel('-');
 				if (rs.getString("gas_level") != null)
 					apartment.setGasLevel(rs.getString("gas_level").charAt(0));
 				else
-					apartment.setGasLevel('N');
+					apartment.setGasLevel('-');
 				apartment.setElevator(rs.getString("elevator").equals("Y"));
 				apartment.setIntercom(rs.getString("intercom").equals("Y"));
 				apartment.setBalcony(rs.getString("balcony").equals("Y"));

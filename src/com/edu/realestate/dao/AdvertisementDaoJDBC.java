@@ -52,7 +52,7 @@ public class AdvertisementDaoJDBC extends AbstractDaoJDBC implements Advertiseme
 				advertisement = AdvertisementMapper.resultToAdvertisement(rs, advertiser, re, pictures);
 			}
 		} catch (SQLException e) {
-			System.out.println("AdvertisementDaoJDBC error : " + e.getLocalizedMessage());
+			System.out.println("AdvertisementDaoJDBC read error : " + e.getLocalizedMessage());
 		}
 
 		return advertisement;
@@ -84,7 +84,7 @@ public class AdvertisementDaoJDBC extends AbstractDaoJDBC implements Advertiseme
 				count = rs.getInt("number");
 			}
 		} catch (SQLException e) {
-			System.out.println("AdvertisementDaoJDBC error : " + e.getLocalizedMessage());
+			System.out.println("AdvertisementDaoJDBC count error : " + e.getLocalizedMessage());
 		}
 
 		return count;
@@ -104,7 +104,7 @@ public class AdvertisementDaoJDBC extends AbstractDaoJDBC implements Advertiseme
 				count = rs.getInt("number");
 			}
 		} catch (SQLException e) {
-			System.out.println("AdvertisementDaoJDBC error : " + e.getLocalizedMessage());
+			System.out.println("AdvertisementDaoJDBC count error : " + e.getLocalizedMessage());
 		}
 
 		return count;
@@ -131,7 +131,7 @@ public class AdvertisementDaoJDBC extends AbstractDaoJDBC implements Advertiseme
 				lads.add(AdvertisementMapper.resultToAdvertisement(rs, advertiser, re, pictures));
 			}
 		} catch (SQLException e) {
-			System.out.println("AdvertisementDaoJDBC error : " + e.getLocalizedMessage());
+			System.out.println("AdvertisementDaoJDBC getLatest error : " + e.getLocalizedMessage());
 		}
 
 		return lads;

@@ -1,5 +1,7 @@
 package com.edu.realestate.model;
 
+import java.text.DecimalFormat;
+
 public abstract class RealEstate {
 
 	protected int id;
@@ -106,6 +108,10 @@ public abstract class RealEstate {
 		default:
 			return "";
 		}
+	}
+	
+	public String priceFrench() {
+		return new DecimalFormat("#,###").format(price);
 	}
 
 	@Override

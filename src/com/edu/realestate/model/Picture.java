@@ -39,4 +39,10 @@ public class Picture {
 		this.data = data;
 	}
 
+	@Override
+	public String toString() {
+		return "Picture [id=" + id + ", codage=" + codage + ", data=" + data + "]";
+	}
+
+	
 }

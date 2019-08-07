@@ -202,16 +202,16 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 				exclude = " AND d.id != " + sc.getExclude();
 			}
 			
-			String req = "SELECT * FROM advertisement d " + " JOIN real_estate r ON d.real_estate_id = r.id " + apJoin
+			String req = "SELECT d.id AS ad_id, d.*, r.*, c.* FROM advertisement d " + " JOIN real_estate r ON d.real_estate_id = r.id " + apJoin
 					+ " JOIN city c ON r.city_id = c.id " + otherJoin + " WHERE r.available = 'Y'"
 					+ " AND d.status = 'Validated' " + exclude + apReq + otherReq + sort + pagination;
 
 			ResultSet rs = st.executeQuery(req);
-
+			
 			while (rs.next()) {
 				Advertiser advertiser = (Advertiser) udao.read(rs.getString("advertiser_id"));
 				RealEstate re = rdao.read(rs.getInt("real_estate_id"));
-				List<Picture> pictures = pdao.getAllPicturesByAd(rs.getInt("id"));
+				List<Picture> pictures = pdao.getAllPicturesByAd(rs.getInt("ad_Id"));
 				Advertisement advertisement = AdvertisementMapper.resultToAdvertisement(rs, advertiser, re, pictures);
 
 				lads.add(advertisement);

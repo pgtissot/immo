@@ -13,7 +13,7 @@ public class TestReferenceServiceImpl {
 
 		AdvertisementService as = new AdvertisementServiceImpl();
 		ReferenceService rs = new ReferenceServiceImpl();
-		Advertisement ad = as.findAdvertisementById("1792");
+//		Advertisement ad = as.findAdvertisementById("1792");
 
 		SearchCriteria sc = new SearchCriteria();
 //		int cityId = 12694;
@@ -24,8 +24,8 @@ public class TestReferenceServiceImpl {
 //		sc.setCityId(cityId);
 //		sc.setQuery("copropriété");
 //		sc.setOffset(5);
-		sc.setSort("distance DESC");
-		sc.setLimit(10);
+//		sc.setSort("distance DESC");
+//		sc.setLimit(10);
 //		sc.setRoomsMin(2);
 //		sc.setRoomsMax(2);
 //		sc.setTransactionType(TransactionType.valueOf("Rent"));
@@ -35,7 +35,7 @@ public class TestReferenceServiceImpl {
 		
 		List<Advertisement> lads = rs.findAdsByCriteria(sc);
 		for (Advertisement a : lads)
-			System.out.println(a);
+			System.out.println(a.getRealEstate().priceFrench());
 
 //		List<City> cities = rs.findCitiesByName("75");
 //		System.out.println(new ObjectMapper().writeValueAsString(cities));

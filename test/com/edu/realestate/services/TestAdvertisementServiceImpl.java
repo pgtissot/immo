@@ -15,8 +15,8 @@ public class TestAdvertisementServiceImpl {
 
 		AdvertisementService as = new AdvertisementServiceImpl();
 
-//		System.out.println(as.findAdvertisementById("5335"));
-//		System.out.println(as.findPictureById(13));
+//		System.out.println(as.findAdvertisementById("8"));
+		System.out.println(as.findPictureById(13));
 //
 //		List<Picture> pads = as.findPictureByAdId(5335);
 //		
@@ -32,10 +32,10 @@ public class TestAdvertisementServiceImpl {
 //			System.out.println(a.getRealEstate().getType());
 //			System.out.println(a.getFrenchReleaseDate());
 		
-		CityDao cdao = new CityDaoJDBC();
-		City city = cdao.read(30480);
-		YelpResult yres = as.findYelpData(city);
-		System.out.println(yres);
+//		CityDao cdao = new CityDaoJDBC();
+//		City city = cdao.read(30480);
+//		YelpResult yres = as.findYelpData(city);
+//		System.out.println(yres);
 		
 	}	
 }
