@@ -71,7 +71,7 @@ public class CityDaoES implements CityDao {
 
 	}
 
-	public List<City> listMatching(String comparator) {
+	public List<City> listMatching(String comparator, boolean exact) {
 		SearchRequest searchRequest = new SearchRequest();
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 		searchSourceBuilder.query(QueryBuilders.matchQuery("name", comparator));

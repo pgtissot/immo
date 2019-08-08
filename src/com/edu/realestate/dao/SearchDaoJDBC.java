@@ -38,7 +38,7 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 			String apJoin = "";
 			String apReq = "";
 			String exclude = "";
-			String sort = "";
+			String sort = " d.release_date DESC";
 			String pagination = "";
 			boolean apt = sc.getRealEstateType().equals(RealEstateType.valueOf("Apartment"));
 			boolean house = sc.getRealEstateType().equals(RealEstateType.valueOf("House"));
@@ -96,6 +96,11 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 			if (sc.getPriceMax() > 0)
 				otherReq += " AND r.price <= " + sc.getPriceMax();
 
+			if (house) 
+				otherJoin += " JOIN house h ON r.id = h.id ";
+			if (apt)
+				otherJoin += " JOIN apartment a ON r.id = a.id ";
+				
 			if (house) {
 				if (sc.getLandMin() < 0)
 					sc.setLandMin(0);
@@ -108,11 +113,10 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 				}
 
 				if (sc.getLandMin() > 0 || sc.getLandMax() > 0) {
-					otherJoin += " JOIN house h ON r.id = h.id ";
 					if (sc.getLandMin() > 0)
-						otherReq += " AND h.price >= " + sc.getPriceMin();
+						otherReq += " AND h.land_area >= " + sc.getLandMin();
 					if (sc.getLandMax() > 0)
-						otherReq += " AND h.price <= " + sc.getPriceMax();
+						otherReq += " AND h.land_area <= " + sc.getLandMax();
 				}
 			}
 
@@ -129,14 +133,12 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 
 				if (sc.getRoomsMin() > 0 || sc.getRoomsMax() > 0) {
 					if (apt) {
-						otherJoin += " JOIN apartment a ON r.id = a.id ";
 						if (sc.getRoomsMin() > 0)
 							otherReq += " AND a.rooms >= " + sc.getRoomsMin();
 						if (sc.getRoomsMax() > 0)
 							otherReq += " AND a.rooms <= " + sc.getRoomsMax();
 					}
 					if (house) {
-						otherJoin += " JOIN house h ON r.id = h.id ";
 						if (sc.getRoomsMin() > 0)
 							otherReq += " AND h.rooms >= " + sc.getRoomsMin();
 						if (sc.getRoomsMax() > 0)
@@ -192,7 +194,7 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 
 			/* SORT AND PAGINATION */
 			if (sc.getSort() != null)
-				sort = " ORDER BY " + sc.getSort();
+				sort = sc.getSort();
 
 			if (sc.getLimit() > 0)
 				pagination = " LIMIT " + sc.getLimit() + " OFFSET " + sc.getOffset();
@@ -204,8 +206,9 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 			
 			String req = "SELECT d.id AS ad_id, d.*, r.*, c.* FROM advertisement d " + " JOIN real_estate r ON d.real_estate_id = r.id " + apJoin
 					+ " JOIN city c ON r.city_id = c.id " + otherJoin + " WHERE r.available = 'Y'"
-					+ " AND d.status = 'Validated' " + exclude + apReq + otherReq + sort + pagination;
+					+ " AND d.status = 'Validated' " + exclude + apReq + otherReq + " ORDER BY " + sort + pagination;
 
+			System.out.println(req);
 			ResultSet rs = st.executeQuery(req);
 			
 			while (rs.next()) {

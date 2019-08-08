@@ -14,7 +14,7 @@ public class TestES {
 		City city = cdes.read(15987);
 //		System.out.println(city);
 		
-		List<City> list = cdes.listMatching("Paris");
+		List<City> list = cdes.listMatching("Paris", false);
 		for (City c : list)
 			System.out.println(c);
 		

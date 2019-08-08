@@ -21,8 +21,8 @@ public class ReferenceServiceImpl implements ReferenceService {
 	}
 	
 	@Override
-	public List<City> findCitiesByName(String input) throws RealEstateException {
-		return cdao.listMatching(input);
+	public List<City> findCitiesByName(String input, boolean exact) throws RealEstateException {
+		return cdao.listMatching(input, exact);
 	}
 
 	@Override

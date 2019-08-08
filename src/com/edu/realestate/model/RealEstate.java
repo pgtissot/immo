@@ -88,7 +88,20 @@ public abstract class RealEstate {
 	}
 
 	public String getType() {
-		return this.getClass().getSimpleName();
+		String name = this.getClass().getSimpleName(); 
+		switch (name) {
+		case "House":
+		case "Apartment":
+		case "Parking":
+		case "Land":
+			return name;
+		case "CommercialProperty":
+			return "Commercial";
+		case "OtherProperty":
+			return "Other";
+		default:
+			return "";
+		}
 	}
 
 	public String toFrench() {
@@ -101,9 +114,9 @@ public abstract class RealEstate {
 			return "Parking";
 		case "Land":
 			return "Terrain";
-		case "CommercialProperty":
-			return "Commercial";
-		case "OtherProperty":
+		case "Commercial":
+			return "Local Commercial";
+		case "Other":
 			return "Autre";
 		default:
 			return "";
@@ -116,7 +129,7 @@ public abstract class RealEstate {
 
 	@Override
 	public String toString() {
-		return "id=" + id + ", price=" + price + ", area=" + area + ", available=" + available + ", city=" + city;
+		return " [id=" + id + ", price=" + price + ", area=" + area + ", available=" + available + ", city=" + city + "]";
 	}
 
 }

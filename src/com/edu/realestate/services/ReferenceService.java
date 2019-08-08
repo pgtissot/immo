@@ -8,7 +8,7 @@ import com.edu.realestate.model.SearchCriteria;
 
 public interface ReferenceService {
 		
-	List<City> findCitiesByName(String input) throws RealEstateException;
+	List<City> findCitiesByName(String input, boolean exact) throws RealEstateException;
 
 	List<Advertisement> findAdsByCriteria(SearchCriteria criteria) throws RealEstateException;
 

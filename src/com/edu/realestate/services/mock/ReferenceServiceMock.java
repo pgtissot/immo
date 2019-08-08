@@ -25,7 +25,7 @@ public class ReferenceServiceMock implements ReferenceService {
 	}
 
 	@Override
-	public List<City> findCitiesByName(String input) throws RealEstateException {
+	public List<City> findCitiesByName(String input, boolean exact) throws RealEstateException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -40,5 +40,6 @@ public class ReferenceServiceMock implements ReferenceService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

@@ -99,13 +99,13 @@ public class Advertisement {
 			return (Apartment) realEstate;
 		case "House" :
 			return (House) realEstate;
-		case "CommercialProperty" :
+		case "Commercial" :
 			return (CommercialProperty) realEstate;
 		case "Land" :
 			return (Land) realEstate;
 		case "Parking" :
 			return (Parking) realEstate;
-		case "OtherProperty" :
+		case "Other" :
 			return (OtherProperty) realEstate;
 		default :
 			return realEstate;

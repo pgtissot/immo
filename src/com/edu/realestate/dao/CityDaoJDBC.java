@@ -54,7 +54,7 @@ public class CityDaoJDBC extends AbstractDaoJDBC implements CityDao {
 	}
 
 	@Override
-	public List<City> listMatching(String comparator) {
+	public List<City> listMatching(String comparator, boolean exact) {
 		List<City> list = new ArrayList<>();
 		
 		try {
@@ -63,7 +63,10 @@ public class CityDaoJDBC extends AbstractDaoJDBC implements CityDao {
 			if (comparator.matches("[0-9]+")) {
 				where += "postcode LIKE '" + comparator + "%'";
 			} else {
-				where += "name LIKE '%" + comparator + "%'";
+				if (!exact)
+					where += "name LIKE '%" + comparator + "%'";
+				else
+					where += "name = '" + comparator + "'";
 			}
 
 			ResultSet rs = st.executeQuery("SELECT * FROM city "+ where + "ORDER BY name");

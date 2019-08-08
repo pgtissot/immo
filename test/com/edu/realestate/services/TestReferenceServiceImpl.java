@@ -16,12 +16,12 @@ public class TestReferenceServiceImpl {
 //		Advertisement ad = as.findAdvertisementById("1792");
 
 		SearchCriteria sc = new SearchCriteria();
-//		int cityId = 12694;
-//		CityDao cdao = new CityDaoJDBC();
-//		City city = cdao.read(cityId);
+		int cityId = 12694;
+		CityDao cdao = new CityDaoJDBC();
+		City city = cdao.read(cityId);
 		
 		sc.setRealEstateType(RealEstateType.valueOf("House"));
-//		sc.setCityId(cityId);
+		sc.setCityId(cityId);
 //		sc.setQuery("copropriété");
 //		sc.setOffset(5);
 //		sc.setSort("distance DESC");
@@ -35,7 +35,7 @@ public class TestReferenceServiceImpl {
 		
 		List<Advertisement> lads = rs.findAdsByCriteria(sc);
 		for (Advertisement a : lads)
-			System.out.println(a.getRealEstate().priceFrench());
+			System.out.println(a);
 
 //		List<City> cities = rs.findCitiesByName("75");
 //		System.out.println(new ObjectMapper().writeValueAsString(cities));

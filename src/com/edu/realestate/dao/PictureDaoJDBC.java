@@ -1,7 +1,6 @@
 package com.edu.realestate.dao;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.Scanner;
-
 import com.edu.realestate.model.Picture;
 
 public class PictureDaoJDBC extends AbstractDaoJDBC implements PictureDao {
