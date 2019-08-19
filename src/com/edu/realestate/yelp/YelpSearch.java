@@ -25,14 +25,14 @@ public class YelpSearch {
 	public static List<YelpBusiness> getBusinesses(City city) throws Exception {
 
 		String uri = "https://api.yelp.com/v3/businesses/search?location=" + URLEncoder.encode(city.getName(), "UTF-8") + "+"
-				+ URLEncoder.encode(city.getPostcode(), "UTF-8") + "&sort_by=distance";
+				+ URLEncoder.encode(city.getPostcode(), "UTF-8") + "&sort_by=distance&limit=10";
 
 		List<YelpBusiness> yBusList = new ArrayList<>();
 
 		yBusList = connection.searchCache(uri, "YelpBusiness");
-		
+
 		if (yBusList.isEmpty()) {
-		
+
 			String response = connection.sendGet(uri);
 
 			JsonReader reader = Json.createReader(new StringReader(response));
@@ -53,17 +53,18 @@ public class YelpSearch {
 				for (int i = 0; i < jdaArray.size(); i++)
 					daList.add(jdaArray.getString(i));
 
-
-				YelpBusiness ybus = new YelpBusiness(jobj.getString("name"), jobj.getString("url"),
-						jobj.getString("image_url"), categories, jobj.getJsonNumber("rating").doubleValue(),
-						jobj.getJsonNumber("distance").doubleValue(),
-						jobj.getJsonObject("coordinates").getJsonNumber("longitude").doubleValue(),
-						jobj.getJsonObject("coordinates").getJsonNumber("latitude").doubleValue(),
+				YelpBusiness ybus = new YelpBusiness(
+						!jobj.isNull("name") ? jobj.getString("name") : "",
+						!jobj.isNull("url") ? jobj.getString("url") : "",
+						!jobj.isNull("image_url") ? jobj.getString("image_url") : "",
+						String.join(", ", categories),
+						!jobj.isNull("rating") ? jobj.getJsonNumber("rating").doubleValue() : 0,
+						!jobj.isNull("distance") ? jobj.getJsonNumber("distance").doubleValue() : 0,
 						String.join(", ", daList));
 				yBusList.add(ybus);
 			}
 
-			connection.cacheResults(uri, yBusList);
+			connection.cacheResults(uri, "YelpBusiness", yBusList);
 
 		}
 
@@ -75,7 +76,7 @@ public class YelpSearch {
 	public static List<YelpEvent> getEvents(City city) throws Exception {
 
 		String uri = "https://api.yelp.com/v3/events?location=" + URLEncoder.encode(city.getName(), "UTF-8") + "+"
-				+ URLEncoder.encode(city.getPostcode(), "UTF-8");
+				+ URLEncoder.encode(city.getPostcode(), "UTF-8") + "&limit=10";
 		
 		List<YelpEvent> yEvtList = new ArrayList<>();
 
@@ -96,16 +97,19 @@ public class YelpSearch {
 				List<String> daList = new ArrayList<>();
 				for (int i = 0; i < jdaArray.size(); i++)
 					daList.add(jdaArray.getString(i));
-
-				YelpEvent yevt = new YelpEvent(jobj.getString("name"), jobj.getString("event_site_url"),
-						jobj.getString("description"), jobj.getBoolean("is_free"),
-						LocalDateTime.parse(jobj.getString("time_start"), DateTimeFormatter.ISO_OFFSET_DATE_TIME),
-						LocalDateTime.parse(jobj.getString("time_end"), DateTimeFormatter.ISO_OFFSET_DATE_TIME),
+				
+				YelpEvent yevt = new YelpEvent(
+						!jobj.isNull("name") ? jobj.getString("name") : "",
+						!jobj.isNull("event_site_url") ? jobj.getString("event_site_url") : "",
+						!jobj.isNull("description") ? jobj.getString("description") : "",
+						!jobj.isNull("is_free") ? jobj.getBoolean("is_free") : false,
+						!jobj.isNull("time_start") ? LocalDateTime.parse(jobj.getString("time_start"), DateTimeFormatter.ISO_OFFSET_DATE_TIME) : null,
+						!jobj.isNull("time_end") ? LocalDateTime.parse(jobj.getString("time_end"), DateTimeFormatter.ISO_OFFSET_DATE_TIME) : null,
 						String.join(", ", daList));
 				yEvtList.add(yevt);
 			}
 
-			connection.cacheResults(uri, yEvtList);
+			connection.cacheResults(uri, "YelpEvent", yEvtList);
 
 		}
 		

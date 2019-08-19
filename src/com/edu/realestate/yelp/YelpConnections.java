@@ -19,7 +19,6 @@ import static com.mongodb.client.model.Filters.*;
 
 public class YelpConnections {
 
-	private final String USER_AGENT = "Mozilla/5.0";
 	private final String API_KEY = "mw-qRw9jKZL7uTa6YdLlVgyyVOIc4Krc-WVUt8n51FpqS_2gg2l1A0cjYgumohhL3Z5LC1upznwXePjTyF8sHuN-LmSsJNR2FurAsUtJ5r0Jlvlo8am90pvWHeRDXXYx";
 	private MongoCollection<Document> cache = MongoClients.create("mongodb://localhost:27017").getDatabase("yelp").getCollection("yelpCache");
 	
@@ -32,7 +31,6 @@ public class YelpConnections {
 		con.setRequestMethod("GET");
 
 		// Request header
-		con.setRequestProperty("User-Agent", USER_AGENT);
 		con.setRequestProperty("Authorization", "Bearer " + API_KEY);
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -48,19 +46,19 @@ public class YelpConnections {
 	}
 
 	
-	public void cacheResults(String uri, List<? extends YelpElement> yelpResults) throws Exception {
+	public void cacheResults(String uri, String type, List<? extends YelpElement> yelpResults) throws Exception {
 
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		String md5 = Base64.encode(md.digest(uri.getBytes()));
 
 		Gson gson = new Gson();
 		List<String> jsonL = new ArrayList<>();
-		
+
 		for (YelpElement yel : yelpResults)
 			jsonL.add(gson.toJson(yel));
 		
 		Document doc = new Document("id", md5);
-		doc.append("type", yelpResults.get(0).getClass().getSimpleName());
+		doc.append("type", type);
 		doc.append("results", jsonL.toString());
 		cache.insertOne(doc);
 

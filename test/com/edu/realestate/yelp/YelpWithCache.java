@@ -1,4 +1,4 @@
-package com.edu.mongodb;
+package com.edu.realestate.yelp;
 
 import java.net.URLEncoder;
 import java.security.MessageDigest;
@@ -10,7 +10,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-public class TestMongoDB {
+public class YelpWithCache {
 
 	public static void main(String[] args) throws Exception {
 

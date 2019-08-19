@@ -208,7 +208,7 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 					+ " JOIN city c ON r.city_id = c.id " + otherJoin + " WHERE r.available = 'Y'"
 					+ " AND d.status = 'Validated' " + exclude + apReq + otherReq + " ORDER BY " + sort + pagination;
 
-			System.out.println(req);
+//			System.out.println(req);
 			ResultSet rs = st.executeQuery(req);
 			
 			while (rs.next()) {

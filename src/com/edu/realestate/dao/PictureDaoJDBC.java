@@ -2,8 +2,8 @@ package com.edu.realestate.dao;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -28,29 +28,14 @@ public class PictureDaoJDBC extends AbstractDaoJDBC implements PictureDao {
 			String req = "SELECT * FROM picture WHERE id = " + id;
 
 			ResultSet rs = st.executeQuery(req);
+			picture = new Picture();
 
 			if (rs.next()) {
-				picture = new Picture();
 				picture.setId(rs.getInt("id"));
 				picture.setCodage(String.valueOf(rs.getInt("codage")));
-				
-				InputStream inputStream = rs.getBlob("content").getBinaryStream();
-				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-				byte[] buffer = new byte[4096];
-				int bytesRead = -1;
-				 
-				while ((bytesRead = inputStream.read(buffer)) != -1) {
-				    outputStream.write(buffer, 0, bytesRead);
-				}
-				 
-				byte[] imageBytes = outputStream.toByteArray();
-				 
-				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-				 
-				inputStream.close();
-				outputStream.close();
-				
-				picture.setData(base64Image);
+				picture.setData(toBase64(rs.getBlob("content")));
+			} else {
+				picture.setData("images/image-not-found.jpg");
 			}
 		} catch (Exception e) {
 			System.out.println("PictureDaoJDBC error : " + e.getLocalizedMessage());
@@ -80,17 +65,45 @@ public class PictureDaoJDBC extends AbstractDaoJDBC implements PictureDao {
 			Statement st = getConnection().createStatement();
 			String req = "SELECT p.* FROM picture p JOIN advertisement a ON a.id = p.advertisement_id WHERE a.id = " + id;
 			ResultSet rs = st.executeQuery(req);
-
+			picture = new Picture();
+			
 			while (rs.next()) {
-				picture = new Picture();
 				picture.setId(rs.getInt("id"));
+				picture.setCodage(String.valueOf(rs.getInt("codage")));
+				picture.setData(toBase64(rs.getBlob("content")));
 				list.add(picture);
 			}
-		} catch (SQLException e) {
+			
+			if (list.size() == 0) {
+				picture.setData("images/image-not-found.jpg");
+				list.add(picture);
+			}
+				
+		} catch (Exception e) {
 			System.out.println("PictureDaoJDBC error : " + e.getLocalizedMessage());
 		}
 
 		return list;
 	}
 
+	public String toBase64(Blob b) throws Exception {
+		
+		InputStream inputStream = b.getBinaryStream();
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		byte[] buffer = new byte[4096];
+		int bytesRead = -1;
+		 
+		while ((bytesRead = inputStream.read(buffer)) != -1) {
+		    outputStream.write(buffer, 0, bytesRead);
+		}
+		 
+		byte[] imageBytes = outputStream.toByteArray();
+		 
+		String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+		 
+		inputStream.close();
+		outputStream.close();
+		
+		return "data:image/jpeg;base64," + base64Image;
+	}
 }

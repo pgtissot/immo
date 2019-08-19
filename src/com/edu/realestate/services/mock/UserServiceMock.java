@@ -49,6 +49,5 @@ public class UserServiceMock implements UserService {
 		// TODO Auto-generated method stub
 		
 	}
-
 	
 }

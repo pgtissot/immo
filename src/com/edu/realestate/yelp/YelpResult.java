@@ -4,35 +4,36 @@ import java.util.List;
 
 public class YelpResult {
 
-	private List<YelpBusiness> yBusList;
-	private List<YelpEvent> yEvtList;
+	private List<YelpBusiness> businessList;
+	private List<YelpEvent> eventList;
 
-	public YelpResult(List<YelpBusiness> ybusList, List<YelpEvent> yevtList) {
+	public YelpResult(List<YelpBusiness> businessList, List<YelpEvent> eventList) {
 		super();
-		this.yBusList = ybusList;
-		this.yEvtList = yevtList;
+		this.businessList = businessList;
+		this.eventList = eventList;
 	}
 
-	public List<YelpBusiness> getYbusList() {
-		return yBusList;
+	public List<YelpBusiness> getBusinessList() {
+		return businessList;
 	}
 
-	public void setYbusList(List<YelpBusiness> ybusList) {
-		this.yBusList = ybusList;
+	public void setBusinessList(List<YelpBusiness> businessList) {
+		this.businessList = businessList;
 	}
 
-	public List<YelpEvent> getYevtList() {
-		return yEvtList;
+	public List<YelpEvent> getEventList() {
+		return eventList;
 	}
 
-	public void setYevtList(List<YelpEvent> yevtList) {
-		this.yEvtList = yevtList;
+	public void setEventList(List<YelpEvent> eventList) {
+		this.eventList = eventList;
 	}
 
 	@Override
 	public String toString() {
-		return "YelpResult [ybusList=" + yBusList + ", yevtList=" + yEvtList + "]";
+		return "YelpResult [businessList=" + businessList + ", eventList=" + eventList + "]";
 	}
+
 	
 	
 	

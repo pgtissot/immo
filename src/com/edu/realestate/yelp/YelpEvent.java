@@ -3,10 +3,6 @@ package com.edu.realestate.yelp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import javax.json.Json;
-import javax.json.JsonBuilderFactory;
-import javax.json.JsonObject;
-
 public class YelpEvent extends YelpElement {
 
 	private String description;
@@ -64,23 +60,6 @@ public class YelpEvent extends YelpElement {
 	public String toString() {
 		return "YelpEvent [" + super.toString() + ", description=" + description + ", free=" + free
 				+ ", timeStart=" + timeStart + ", timeEnd=" + timeEnd + "]";
-	}
-	
-	
-	public JsonObject toJson () {
-
-		JsonBuilderFactory jbf = Json.createBuilderFactory(null);
-
-		JsonObject json = jbf.createObjectBuilder()
-				.add("name", name)
-				.add("url", url)
-				.add("description", description)
-				.add("free", free)
-				.add("timeStart", formatDateTime(timeStart))
-				.add("timeEnd", formatDateTime(timeEnd))
-				.add("address", address).build();
-		
-		return json;
 	}
 	
 }

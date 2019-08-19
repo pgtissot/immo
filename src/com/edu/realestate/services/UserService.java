@@ -13,7 +13,7 @@ public interface UserService {
 	
 	User authenticate(String login, String password)
 		throws AuthenticationException ;
-	
+
 	void disconnect(User u);
 	
 }
