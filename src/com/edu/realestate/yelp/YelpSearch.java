@@ -1,21 +1,18 @@
 package com.edu.realestate.yelp;
 
-import java.io.StringReader;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.JsonValue;
-
 import com.edu.realestate.model.City;
 import com.edu.realestate.yelp.YelpBusiness;
 import com.edu.realestate.yelp.YelpConnections;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 
 public class YelpSearch {
@@ -35,31 +32,37 @@ public class YelpSearch {
 
 			String response = connection.sendGet(uri);
 
-			JsonReader reader = Json.createReader(new StringReader(response));
-			JsonArray jarray = reader.readObject().getJsonArray("businesses");
-			reader.close();
-
-			for (JsonValue j : jarray) {
-				JsonObject jobj = (JsonObject) j;
+			JsonParser parser = new JsonParser();
+			JsonElement jsonTree = parser.parse(response);
+			JsonObject jsonRoot = jsonTree.getAsJsonObject();
+			JsonArray jArray = jsonRoot.getAsJsonArray("businesses");
+			
+			for (JsonElement j : jArray) {
+				JsonObject jobj = j.getAsJsonObject();
 
 				List<String> categories = new ArrayList<>();
-				JsonArray jcatArray = jobj.getJsonArray("categories");
-				for (JsonValue jvcat : jcatArray) {
-					categories.add(((JsonObject) jvcat).getString("title"));
+				JsonArray jcatArray = jobj.getAsJsonArray("categories");
+				for (JsonElement jvcat : jcatArray) {
+					JsonObject o = jvcat.getAsJsonObject();
+					JsonElement v = o.get("title");
+					categories.add(v.getAsString());
 				}
 
-				JsonArray jdaArray = jobj.getJsonObject("location").getJsonArray("display_address");
+				JsonObject location = jobj.getAsJsonObject("location");
+				JsonArray jdaArray = location.getAsJsonArray("display_address");
 				List<String> daList = new ArrayList<>();
 				for (int i = 0; i < jdaArray.size(); i++)
-					daList.add(jdaArray.getString(i));
+					daList.add(jdaArray.get(i).getAsString());
 
+				jobj.get("name");
+				
 				YelpBusiness ybus = new YelpBusiness(
-						!jobj.isNull("name") ? jobj.getString("name") : "",
-						!jobj.isNull("url") ? jobj.getString("url") : "",
-						!jobj.isNull("image_url") ? jobj.getString("image_url") : "",
+						!jobj.get("name").isJsonNull() ? jobj.get("name").getAsString() : "",
+						!jobj.get("url").isJsonNull() ? jobj.get("url").getAsString() : "",
+						!jobj.get("image_url").isJsonNull() ? jobj.get("image_url").getAsString() : "",
 						String.join(", ", categories),
-						!jobj.isNull("rating") ? jobj.getJsonNumber("rating").doubleValue() : 0,
-						!jobj.isNull("distance") ? jobj.getJsonNumber("distance").doubleValue() : 0,
+						!jobj.get("rating").isJsonNull() ? jobj.get("rating").getAsDouble() : 0,
+						!jobj.get("distance").isJsonNull() ? jobj.get("distance").getAsDouble() : 0,
 						String.join(", ", daList));
 				yBusList.add(ybus);
 			}
@@ -86,25 +89,27 @@ public class YelpSearch {
 			
 			String response = connection.sendGet(uri);
 
-			JsonReader reader = Json.createReader(new StringReader(response));
-			JsonArray jarray = reader.readObject().getJsonArray("events");
-			reader.close();
+			JsonParser parser = new JsonParser();
+			JsonElement jsonTree = parser.parse(response);
+			JsonObject jsonRoot = jsonTree.getAsJsonObject();
+			JsonArray jArray = jsonRoot.getAsJsonArray("events");
 
-			for (JsonValue j : jarray) {
-				JsonObject jobj = (JsonObject) j;
+			for (JsonElement j : jArray) {
+				JsonObject jobj = j.getAsJsonObject();
 
-				JsonArray jdaArray = jobj.getJsonObject("location").getJsonArray("display_address");
+				JsonObject location = jobj.getAsJsonObject("location");
+				JsonArray jdaArray = location.getAsJsonArray("display_address");
 				List<String> daList = new ArrayList<>();
 				for (int i = 0; i < jdaArray.size(); i++)
-					daList.add(jdaArray.getString(i));
+					daList.add(jdaArray.get(i).toString());
 				
 				YelpEvent yevt = new YelpEvent(
-						!jobj.isNull("name") ? jobj.getString("name") : "",
-						!jobj.isNull("event_site_url") ? jobj.getString("event_site_url") : "",
-						!jobj.isNull("description") ? jobj.getString("description") : "",
-						!jobj.isNull("is_free") ? jobj.getBoolean("is_free") : false,
-						!jobj.isNull("time_start") ? LocalDateTime.parse(jobj.getString("time_start"), DateTimeFormatter.ISO_OFFSET_DATE_TIME) : null,
-						!jobj.isNull("time_end") ? LocalDateTime.parse(jobj.getString("time_end"), DateTimeFormatter.ISO_OFFSET_DATE_TIME) : null,
+						!jobj.get("name").isJsonNull() ? jobj.get("name").getAsString() : "",
+						!jobj.get("event_site_url").isJsonNull() ? jobj.get("event_site_url").getAsString() : "",
+						!jobj.get("description").isJsonNull() ? jobj.get("description").getAsString() : "",
+						!jobj.get("is_free").isJsonNull() ? jobj.get("is_free").getAsBoolean() : false,
+						!jobj.get("time_start").isJsonNull() ? LocalDateTime.parse(jobj.get("time_start").getAsString(), DateTimeFormatter.ISO_OFFSET_DATE_TIME) : null,
+						!jobj.get("time_end").isJsonNull() ? LocalDateTime.parse(jobj.get("time_end").getAsString(), DateTimeFormatter.ISO_OFFSET_DATE_TIME) : null,
 						String.join(", ", daList));
 				yEvtList.add(yevt);
 			}
