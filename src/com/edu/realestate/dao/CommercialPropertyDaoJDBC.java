@@ -10,7 +10,7 @@ import com.edu.realestate.model.CommercialProperty;
 public class CommercialPropertyDaoJDBC extends AbstractDaoJDBC implements CommercialPropertyDao {
 
 	@Override
-	public void create(CommercialProperty element) {
+	public void create(CommercialProperty cp) {
 		// TODO Auto-generated method stub
 
 	}
@@ -47,13 +47,13 @@ public class CommercialPropertyDaoJDBC extends AbstractDaoJDBC implements Commer
 	}
 
 	@Override
-	public void update(CommercialProperty element) {
+	public void update(CommercialProperty cp) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(CommercialProperty cp) {
 		// TODO Auto-generated method stub
 
 	}

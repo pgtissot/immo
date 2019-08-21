@@ -15,23 +15,23 @@ public class FavoriteDaoJDBC extends AbstractDaoJDBC implements FavoriteDao {
 	}
 
 	@Override
-	public void create(Favorite favorite) {
+	public void create(Favorite fav) {
 
 		try {
 			Statement st = getConnection().createStatement();
 
 			String colComments = "";
 			String valComments = "";
-			if (favorite.getComments() != null) {
+			if (fav.getComments() != null) {
 				colComments = ", `comments`";
-				valComments = ", '" + Utils.toUTF8(favorite.getComments().replace("'", "''")) + "'";
+				valComments = ", '" + Utils.toUTF8(fav.getComments().replace("'", "''")) + "'";
 			}
 
 			String req = "INSERT INTO favoris " +
 			"(`owner`, `advertisement_id`, `priority`" + colComments +") VALUES " +
-			"('" + favorite.getUsername() + "', " +
-			favorite.getAd().getId() + ", " +
-			favorite.getPriority() +
+			"('" + fav.getUsername() + "', " +
+			fav.getAd().getId() + ", " +
+			fav.getPriority() +
 			valComments + ")";
 
 			st.executeUpdate(req);
@@ -69,16 +69,16 @@ public class FavoriteDaoJDBC extends AbstractDaoJDBC implements FavoriteDao {
 	}
 
 	@Override
-	public void update(Favorite element) {
+	public void update(Favorite fav) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(Favorite fav) {
 		try {
 			Statement st = getConnection().createStatement();
-			String req = "DELETE FROM favoris WHERE id = " + id;
+			String req = "DELETE FROM favoris WHERE id = " + fav.getId();
 			st.executeUpdate(req);
 		} catch (Exception e) {
 			System.out.println("FavoriteDaoJDBC delete error : " + e.getLocalizedMessage());

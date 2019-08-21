@@ -10,7 +10,7 @@ import com.edu.realestate.model.RealEstate;
 public class RealEstateDaoJDBC extends AbstractDaoJDBC implements RealEstateDao {
 
 	@Override
-	public void create(RealEstate element) {
+	public void create(RealEstate re) {
 		// TODO Auto-generated method stub
 
 	}
@@ -34,19 +34,19 @@ public class RealEstateDaoJDBC extends AbstractDaoJDBC implements RealEstateDao 
 	}
 
 	@Override
-	public void update(RealEstate element) {
+	public void update(RealEstate re) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(RealEstate re) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public int countRealEstates() {
-		int count = 0;
+	public long countRealEstates() {
+		long count = 0;
 		
 		try {
 			Statement st = getConnection().createStatement();

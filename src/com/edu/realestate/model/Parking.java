@@ -1,11 +1,22 @@
 package com.edu.realestate.model;
 
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+
+@Entity
+@PrimaryKeyJoinColumn(name="id")
 public class Parking extends RealEstate {
 
 	public Parking() {}
 	
-	public Parking(int id) {
-		super(id);
+	@Override
+	public String getType() {
+		return "Parking";
+	}
+
+	@Override
+	public String toFrench() {
+		return "Parking";
 	}
 
 	@Override

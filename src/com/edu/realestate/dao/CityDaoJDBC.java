@@ -48,7 +48,7 @@ public class CityDaoJDBC extends AbstractDaoJDBC implements CityDao {
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(City element) {
 		// TODO Auto-generated method stub
 
 	}

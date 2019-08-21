@@ -1,12 +1,34 @@
 package com.edu.realestate.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="favoris")
 public class Favorite {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(name="owner")
 	private String username;
+
+	@OneToOne
+	@JoinColumn(name="advertisement_id")
 	private Advertisement ad;
+
 	private int priority;
 	private String comments;
+	
+	public Favorite() {
+	}
 
 	public Favorite(int id, String username, Advertisement ad, int priority, String comments) {
 		this.id = id;

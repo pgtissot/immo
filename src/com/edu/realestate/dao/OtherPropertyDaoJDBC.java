@@ -10,7 +10,7 @@ import com.edu.realestate.model.OtherProperty;
 public class OtherPropertyDaoJDBC extends AbstractDaoJDBC implements OtherPropertyDao {
 
 	@Override
-	public void create(OtherProperty element) {
+	public void create(OtherProperty op) {
 		// TODO Auto-generated method stub
 
 	}
@@ -47,13 +47,13 @@ public class OtherPropertyDaoJDBC extends AbstractDaoJDBC implements OtherProper
 	}
 
 	@Override
-	public void update(OtherProperty element) {
+	public void update(OtherProperty op) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(OtherProperty op) {
 		// TODO Auto-generated method stub
 
 	}

@@ -1,5 +1,10 @@
 package com.edu.realestate.model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("M")
 public class Moderator extends User {
 	
 	private String name;

@@ -1,24 +1,42 @@
 package com.edu.realestate.model;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+
+import com.edu.realestate.converter.BooleanToStringConverter;
+
+@Entity
+@PrimaryKeyJoinColumn(name="id")
 public class House extends RealEstate {
 
-	private int rooms;
-	private int landArea;
-	private char energyLevel;
-	private char gasLevel;
+	private Integer rooms;
+
+	@Column(name="land_area")
+	private Integer landArea;
+
+	@Column(name="energy_level")
+	private String energyLevel;
+
+	@Column(name="gas_level")
+	private String gasLevel;
+
+	@Convert(converter=BooleanToStringConverter.class)
 	private boolean cellar;
+
+	@Convert(converter=BooleanToStringConverter.class)
 	private boolean alarm;
+
+	@Column(name="swimming_pool")
+	@Convert(converter=BooleanToStringConverter.class)
 	private boolean swimmingPool;
 
 	public House() {}
 	
-	public House(int id) {
-		super(id);
-	}
-
-	public House(int id, int rooms, int landArea, char energyLevel, char gasLevel, boolean cellar, boolean alarm,
+	public House(int id, int rooms, Integer landArea, String energyLevel, String gasLevel, boolean cellar, boolean alarm,
 			boolean swimmingPool) {
-		super(id);
+		this.id = id;
 		this.rooms = rooms;
 		this.landArea = landArea;
 		this.energyLevel = energyLevel;
@@ -44,19 +62,19 @@ public class House extends RealEstate {
 		this.landArea = landArea;
 	}
 
-	public char getEnergyLevel() {
+	public String getEnergyLevel() {
 		return energyLevel;
 	}
 
-	public void setEnergyLevel(char energyLevel) {
+	public void setEnergyLevel(String energyLevel) {
 		this.energyLevel = energyLevel;
 	}
 
-	public char getGasLevel() {
+	public String getGasLevel() {
 		return gasLevel;
 	}
 
-	public void setGasLevel(char gasLevel) {
+	public void setGasLevel(String gasLevel) {
 		this.gasLevel = gasLevel;
 	}
 
@@ -82,6 +100,16 @@ public class House extends RealEstate {
 
 	public void setSwimmingPool(boolean swimmingPool) {
 		this.swimmingPool = swimmingPool;
+	}
+
+	@Override
+	public String getType() {
+		return "House";
+	}
+
+	@Override
+	public String toFrench() {
+		return "Maison";
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import com.edu.realestate.model.House;
 public class HouseDaoJDBC extends AbstractDaoJDBC implements HouseDao {
 
 	@Override
-	public void create(House element) {
+	public void create(House h) {
 		// TODO Auto-generated method stub
 
 	}
@@ -36,13 +36,13 @@ public class HouseDaoJDBC extends AbstractDaoJDBC implements HouseDao {
 				house.setRooms(rs.getInt("rooms"));
 				house.setLandArea(rs.getInt("land_area"));
 				if (rs.getString("energy_level") != null)
-					house.setEnergyLevel(rs.getString("energy_level").charAt(0));
+					house.setEnergyLevel(rs.getString("energy_level"));
 				else
-					house.setEnergyLevel('-');
+					house.setEnergyLevel("-");
 				if (rs.getString("gas_level") != null)
-					house.setGasLevel(rs.getString("gas_level").charAt(0));
+					house.setGasLevel(rs.getString("gas_level"));
 				else
-					house.setGasLevel('-');
+					house.setGasLevel("-");
 				house.setCellar(rs.getString("cellar").equals("Y"));
 				house.setAlarm(rs.getString("alarm").equals("Y"));
 				house.setSwimmingPool(rs.getString("swimming_pool").equals("Y"));
@@ -61,13 +61,13 @@ public class HouseDaoJDBC extends AbstractDaoJDBC implements HouseDao {
 	}
 
 	@Override
-	public void update(House element) {
+	public void update(House h) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(House h) {
 		// TODO Auto-generated method stub
 
 	}

@@ -1,4 +1,3 @@
-
 package com.edu.realestate.dao;
 
 import java.sql.ResultSet;

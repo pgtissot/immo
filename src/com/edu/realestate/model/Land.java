@@ -1,11 +1,22 @@
 package com.edu.realestate.model;
 
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+
+@Entity
+@PrimaryKeyJoinColumn(name="id")
 public class Land extends RealEstate {
 
 	public Land() {}
 
-	public Land(int id) {
-		super(id);
+	@Override
+	public String getType() {
+		return "Land";
+	}
+
+	@Override
+	public String toFrench() {
+		return "Terrain";
 	}
 
 	@Override

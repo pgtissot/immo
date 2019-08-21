@@ -37,7 +37,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 	@Override
 	public void removeFavAds(Integer id) {
-		fdao.delete(id);
+		fdao.delete(fdao.read(id));
 	}
 
 }

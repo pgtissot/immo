@@ -4,18 +4,58 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
+
+@Entity
 public class Advertisement {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+
 	private String title;
+
+	@Enumerated(EnumType.STRING)
 	private AdStatus status;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name="transaction_type")
 	private TransactionType transactionType;
+
 	private String description;
+	
+	@Column(name="release_date")
 	private LocalDate releaseDate;
+	
+	@Column(name="ad_number")
 	private String adNumber;
+
+	@OneToOne
+	@JoinColumn(name="real_estate_id")
 	private RealEstate realEstate;
+
+	@ManyToOne
+	@JoinColumn(name="advertiser_id")
 	private Advertiser advertiser;
+
+	@OneToMany(fetch=FetchType.EAGER)
+	@JoinColumn(name="advertisement_id")
+	@OrderBy("id")
 	private List<Picture> pictures;
+
+	@Column(name="refused_comment")
 	private String refusedComment;
 
 	public Advertisement() {

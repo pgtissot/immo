@@ -11,7 +11,7 @@ import com.edu.realestate.model.Land;
 public class LandDaoJDBC extends AbstractDaoJDBC implements LandDao {
 
 	@Override
-	public void create(Land element) {
+	public void create(Land l) {
 		// TODO Auto-generated method stub
 
 	}
@@ -48,13 +48,13 @@ public class LandDaoJDBC extends AbstractDaoJDBC implements LandDao {
 	}
 
 	@Override
-	public void update(Land element) {
+	public void update(Land l) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(Land l) {
 		// TODO Auto-generated method stub
 
 	}

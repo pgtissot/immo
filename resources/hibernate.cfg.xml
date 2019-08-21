@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">
+			com.mysql.cj.jdbc.Driver
+		</property>
+		<property name="hibernate.connection.url">
+			jdbc:mysql://localhost:3307/realestate?useSSL=false&amp;serverTimezone=UTC
+		</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password"></property>
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>
+
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		
+		<mapping class="com.edu.realestate.model.City"/>
+
+		<mapping class="com.edu.realestate.model.User"/>
+		<mapping class="com.edu.realestate.model.Moderator"/>
+		<mapping class="com.edu.realestate.model.Advertiser"/>
+
+		<mapping class="com.edu.realestate.model.RealEstate"/>
+		<mapping class="com.edu.realestate.model.Apartment"/>
+		<mapping class="com.edu.realestate.model.Land"/>
+		<mapping class="com.edu.realestate.model.Parking"/>
+		<mapping class="com.edu.realestate.model.OtherProperty"/>
+		<mapping class="com.edu.realestate.model.CommercialProperty"/>
+		<mapping class="com.edu.realestate.model.House"/>
+
+		<mapping class="com.edu.realestate.model.Advertisement"/>
+		<mapping class="com.edu.realestate.model.Picture"/>
+
+		<mapping class="com.edu.realestate.model.Favorite"/>
+
+	</session-factory>
+</hibernate-configuration>

@@ -25,7 +25,7 @@ public class AdvertisementDaoJDBC extends AbstractDaoJDBC implements Advertiseme
 	}
 
 	@Override
-	public void create(Advertisement element) {
+	public void create(Advertisement adv) {
 		// TODO Auto-generated method stub
 
 	}
@@ -60,19 +60,19 @@ public class AdvertisementDaoJDBC extends AbstractDaoJDBC implements Advertiseme
 	}
 
 	@Override
-	public void update(Advertisement element) {
+	public void update(Advertisement adv) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(Advertisement adv) {
 		// TODO Auto-generated method stub
 
 	}
 	
-	public int countSaleAds() {
-		int count = 0;
+	public long countSaleAds() {
+		long count = 0;
 		
 		try {
 			Statement st = getConnection().createStatement();
@@ -91,8 +91,8 @@ public class AdvertisementDaoJDBC extends AbstractDaoJDBC implements Advertiseme
 		
 	}
 
-	public int countRentAds() {
-		int count = 0;
+	public long countRentAds() {
+		long count = 0;
 		
 		try {
 			Statement st = getConnection().createStatement();

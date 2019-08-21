@@ -11,7 +11,7 @@ import com.edu.realestate.model.Parking;
 public class ParkingDaoJDBC extends AbstractDaoJDBC implements ParkingDao {
 
 	@Override
-	public void create(Parking element) {
+	public void create(Parking p) {
 		// TODO Auto-generated method stub
 
 	}
@@ -48,13 +48,13 @@ public class ParkingDaoJDBC extends AbstractDaoJDBC implements ParkingDao {
 	}
 
 	@Override
-	public void update(Parking element) {
+	public void update(Parking p) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(Parking p) {
 		// TODO Auto-generated method stub
 
 	}

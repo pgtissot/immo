@@ -1,35 +1,55 @@
 package com.edu.realestate.model;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+
+import com.edu.realestate.converter.BooleanToStringConverter;
+
+@Entity
+@PrimaryKeyJoinColumn(name="id")
 public class Apartment extends RealEstate {
 
-	private int rooms;
+	private Integer rooms;
 	private String floor;
-	private char energyLevel;
-	private char gasLevel;
+
+	@Column(name="energy_level")
+	private String energyLevel;
+
+	@Column(name="gas_level")
+	private String gasLevel;
+
+	@Convert(converter=BooleanToStringConverter.class)
 	private boolean elevator;
+
+	@Convert(converter=BooleanToStringConverter.class)
 	private boolean intercom;
+	
+	@Convert(converter=BooleanToStringConverter.class)
 	private boolean balcony;
+	
+	@Convert(converter=BooleanToStringConverter.class)
 	private boolean terrace;
+	
+	@Convert(converter=BooleanToStringConverter.class)
 	private boolean garage;
+	
+	@Convert(converter=BooleanToStringConverter.class)
 	private boolean parking;
+	
+	@Convert(converter=BooleanToStringConverter.class)
 	private boolean alarm;
+	
+	@Convert(converter=BooleanToStringConverter.class)
 	private boolean digicode;
 
 	public Apartment() {}
 
-	public Apartment(int id) {
-		super(id);
-	}
-
-	public Apartment(int id, int rooms) {
-		super(id);
-		this.rooms = rooms;
-	}
-
-	public Apartment(int id, int rooms, String floor, char energyLevel, char gasLevel, boolean elevator,
+	public Apartment(int id, int rooms, String floor, String energyLevel, String gasLevel, boolean elevator,
 			boolean intercom, boolean balcony, boolean terrace, boolean garage, boolean parking, boolean alarm,
 			boolean digicode) {
-		super(id);
+		this.id = id;
 		this.rooms = rooms;
 		this.floor = floor;
 		this.energyLevel = energyLevel;
@@ -60,19 +80,19 @@ public class Apartment extends RealEstate {
 		this.floor = floor;
 	}
 
-	public char getEnergyLevel() {
+	public String getEnergyLevel() {
 		return energyLevel;
 	}
 
-	public void setEnergyLevel(char energyLevel) {
+	public void setEnergyLevel(String energyLevel) {
 		this.energyLevel = energyLevel;
 	}
 
-	public char getGasLevel() {
+	public String getGasLevel() {
 		return gasLevel;
 	}
 
-	public void setGasLevel(char gasLevel) {
+	public void setGasLevel(String gasLevel) {
 		this.gasLevel = gasLevel;
 	}
 
@@ -138,6 +158,16 @@ public class Apartment extends RealEstate {
 
 	public void setDigicode(boolean digicode) {
 		this.digicode = digicode;
+	}
+
+	@Override
+	public String getType() {
+		return "Apartment";
+	}
+
+	@Override
+	public String toFrench() {
+		return "Appartement";
 	}
 
 	@Override

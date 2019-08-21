@@ -1,17 +1,28 @@
 package com.edu.realestate.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.bson.internal.Base64;
+
+@Entity
 public class Picture {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private String codage;
-	private String data;
+
+	@Column(name="content")
+	private byte[] data;
 
 	public Picture() {
 	}
 
-	public Picture(int id, String codage, String data) {
+	public Picture(int id, byte[] data) {
 		this.id = id;
-		this.codage = codage;
 		this.data = data;
 	}
 
@@ -23,25 +34,17 @@ public class Picture {
 		this.id = id;
 	}
 
-	public String getCodage() {
-		return codage;
-	}
-
-	public void setCodage(String codage) {
-		this.codage = codage;
-	}
-
 	public String getData() {
-		return data;
+		return "data:image/jpeg;base64," + Base64.encode(data);
 	}
 
-	public void setData(String data) {
+	public void setData(byte[] data) {
 		this.data = data;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Picture [id=" + id + ", codage=" + codage + ", data=" + data + "]";
+		return "Picture [id=" + id + ", data=" + getData() + "]";
 	}
 
 	

@@ -8,8 +8,8 @@ public interface AdvertisementDao extends AbstractDao<Advertisement> {
 
 	List<Advertisement> getLatest(int number);
 
-	int countSaleAds();
+	long countSaleAds();
 
-	int countRentAds();
+	long countRentAds();
 
 }

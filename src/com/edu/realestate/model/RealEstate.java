@@ -2,19 +2,39 @@ package com.edu.realestate.model;
 
 import java.text.DecimalFormat;
 
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.edu.realestate.converter.BooleanToStringConverter;
+
+@Entity
+@Table(name="real_estate")
+@Inheritance(strategy=InheritanceType.JOINED)
 public abstract class RealEstate {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	protected int id;
+
 	protected int price;
 	protected short area;
+	
+	@Convert(converter=BooleanToStringConverter.class)
 	protected boolean available;
+	
+	@ManyToOne
+	@JoinColumn(name="city_id")
 	protected City city;
 
 	public RealEstate() {
-	}
-
-	public RealEstate(int id) {
-		this.id = id;
 	}
 
 	public RealEstate(int id, int price, short area, boolean available, City city) {
@@ -87,41 +107,9 @@ public abstract class RealEstate {
 		return result;
 	}
 
-	public String getType() {
-		String name = this.getClass().getSimpleName(); 
-		switch (name) {
-		case "House":
-		case "Apartment":
-		case "Parking":
-		case "Land":
-			return name;
-		case "CommercialProperty":
-			return "Commercial";
-		case "OtherProperty":
-			return "Other";
-		default:
-			return "";
-		}
-	}
+	public abstract String getType();
 
-	public String toFrench() {
-		switch (getType()) {
-		case "House":
-			return "Maison";
-		case "Apartment":
-			return "Appartement";
-		case "Parking":
-			return "Parking";
-		case "Land":
-			return "Terrain";
-		case "Commercial":
-			return "Local Commercial";
-		case "Other":
-			return "Autre";
-		default:
-			return "";
-		}
-	}
+	public abstract String toFrench();
 	
 	public String priceFrench() {
 		return new DecimalFormat("#,###").format(price);

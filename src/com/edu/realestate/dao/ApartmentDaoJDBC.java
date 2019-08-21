@@ -10,7 +10,7 @@ import com.edu.realestate.model.City;
 public class ApartmentDaoJDBC extends AbstractDaoJDBC implements ApartmentDao {
 
 	@Override
-	public void create(Apartment element) {
+	public void create(Apartment ap) {
 		// TODO Auto-generated method stub
 
 	}
@@ -36,13 +36,13 @@ public class ApartmentDaoJDBC extends AbstractDaoJDBC implements ApartmentDao {
 				apartment.setRooms(rs.getInt("rooms"));
 				apartment.setFloor(rs.getString("floor"));
 				if (rs.getString("energy_level") != null)
-					apartment.setEnergyLevel(rs.getString("energy_level").charAt(0));
+					apartment.setEnergyLevel(rs.getString("energy_level"));
 				else
-					apartment.setEnergyLevel('-');
+					apartment.setEnergyLevel("-");
 				if (rs.getString("gas_level") != null)
-					apartment.setGasLevel(rs.getString("gas_level").charAt(0));
+					apartment.setGasLevel(rs.getString("gas_level"));
 				else
-					apartment.setGasLevel('-');
+					apartment.setGasLevel("-");
 				apartment.setElevator(rs.getString("elevator").equals("Y"));
 				apartment.setIntercom(rs.getString("intercom").equals("Y"));
 				apartment.setBalcony(rs.getString("balcony").equals("Y"));
@@ -65,13 +65,13 @@ public class ApartmentDaoJDBC extends AbstractDaoJDBC implements ApartmentDao {
 	}
 
 	@Override
-	public void update(Apartment element) {
+	public void update(Apartment ap) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(Apartment ap) {
 		// TODO Auto-generated method stub
 
 	}

@@ -11,12 +11,12 @@ import com.edu.realestate.model.User;
 public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao {
 
 	@Override
-	public void create(User user) {
+	public void create(User u) {
 		String req = null;
 		
 		try {
 			Statement st = getConnection().createStatement();
-			req = UserMapper.usertoResult(user);
+			req = UserMapper.usertoResult(u);
 			st.executeUpdate(req);
 
 		} catch (Exception e) {
@@ -48,11 +48,11 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao {
 	}
 
 	@Override
-	public void update(User user) {
+	public void update(User u) {
 		try {
 			Statement st = getConnection().createStatement();
-			String req = "UPDATE user_data SET password='" + user.getPassword() + "'" +
-					" WHERE username='" + user.getUsername()+ "'";
+			String req = "UPDATE user_data SET password='" + u.getPassword() + "'" +
+					" WHERE username='" + u.getUsername()+ "'";
 			st.executeUpdate(req);
 		} catch (SQLException e) {
 			System.out.println("UserDaoJDBC delete error : " + e.getLocalizedMessage());
@@ -60,7 +60,7 @@ public class UserDaoJDBC extends AbstractDaoJDBC implements UserDao {
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(User u) {
 		// TODO Auto-generated method stub
 		
 	}
