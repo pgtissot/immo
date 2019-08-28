@@ -10,11 +10,6 @@ public class Land extends RealEstate {
 	public Land() {}
 
 	@Override
-	public String getType() {
-		return "Land";
-	}
-
-	@Override
 	public String toFrench() {
 		return "Terrain";
 	}

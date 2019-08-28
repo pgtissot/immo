@@ -64,7 +64,7 @@ public class Apartment extends RealEstate {
 		this.digicode = digicode;
 	}
 
-	public int getRooms() {
+	public Integer getRooms() {
 		return rooms;
 	}
 
@@ -158,11 +158,6 @@ public class Apartment extends RealEstate {
 
 	public void setDigicode(boolean digicode) {
 		this.digicode = digicode;
-	}
-
-	@Override
-	public String getType() {
-		return "Apartment";
 	}
 
 	@Override

@@ -10,11 +10,6 @@ public class Parking extends RealEstate {
 	public Parking() {}
 	
 	@Override
-	public String getType() {
-		return "Parking";
-	}
-
-	@Override
 	public String toFrench() {
 		return "Parking";
 	}

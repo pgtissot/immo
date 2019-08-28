@@ -20,7 +20,7 @@ public class RealEstateFactory {
 			a.setAlarm(true);
 			re = a;
 			break;
-		case Commercial:
+		case CommercialProperty:
 			CommercialProperty cp = new CommercialProperty();
 			cp.setArea((short) 10000);
 			cp.setAvailable(true);
@@ -37,7 +37,7 @@ public class RealEstateFactory {
 			l.setAvailable(false);
 			re = l;
 			break;
-		case Other:
+		case OtherProperty:
 			OtherProperty o = new OtherProperty();
 			o.setPrice(12);
 			re = o;

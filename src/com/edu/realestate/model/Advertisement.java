@@ -1,8 +1,11 @@
 package com.edu.realestate.model;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
+import javax.persistence.PrePersist;
 
 @Entity
 public class Advertisement {
@@ -57,7 +61,13 @@ public class Advertisement {
 
 	@Column(name="refused_comment")
 	private String refusedComment;
+	
+//	@OneToMany(mappedBy="advertisement")
+//	private List<Favorite> favorites;
 
+	private static SimpleDateFormat dateFormat = new SimpleDateFormat("MMdd");
+
+	
 	public Advertisement() {
 	}
 
@@ -134,18 +144,18 @@ public class Advertisement {
 	}
 
 	public RealEstate getRealEstate() {
-		switch (realEstate.getType()) {
+		switch (realEstate.getClass().getSimpleName()) {
 		case "Apartment" :
 			return (Apartment) realEstate;
 		case "House" :
 			return (House) realEstate;
-		case "Commercial" :
+		case "CommercialProperty" :
 			return (CommercialProperty) realEstate;
 		case "Land" :
 			return (Land) realEstate;
 		case "Parking" :
 			return (Parking) realEstate;
-		case "Other" :
+		case "OtherProperty" :
 			return (OtherProperty) realEstate;
 		default :
 			return realEstate;
@@ -180,6 +190,14 @@ public class Advertisement {
 		this.refusedComment = refusedComment;
 	}
 	
+//	public List<Favorite> getFavorites() {
+//		return favorites;
+//	}
+//
+//	public void setFavorites(List<Favorite> favorites) {
+//		this.favorites = favorites;
+//	}
+
 	public String transactionTypeToFrench() {
 		switch(transactionType) {
 		case Sale : return "Vente";
@@ -190,6 +208,15 @@ public class Advertisement {
 	
 	public String getFrenchReleaseDate() {
 		return releaseDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
+	}
+	
+	@PrePersist
+	private void beforePersistence() {
+		if (adNumber == null || adNumber.isEmpty()) {
+			Random rnd = new Random();
+			int n = 10000 + rnd.nextInt(90000);
+			adNumber = "A" + dateFormat.format(new Date()) + n;
+		}
 	}
 
 	@Override

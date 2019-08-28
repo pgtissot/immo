@@ -9,6 +9,7 @@ import java.util.List;
 import com.edu.realestate.mapping.AdvertisementMapper;
 import com.edu.realestate.model.Advertisement;
 import com.edu.realestate.model.Advertiser;
+import com.edu.realestate.model.City;
 import com.edu.realestate.model.Picture;
 import com.edu.realestate.model.RealEstate;
 import com.edu.realestate.model.RealEstateType;
@@ -16,11 +17,13 @@ import com.edu.realestate.model.SearchCriteria;
 
 public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 
+	private CityDao cdao;
 	private UserDao udao;
 	private RealEstateDao rdao;
 	private PictureDao pdao;
 
 	public SearchDaoJDBC() {
+		cdao = new CityDaoJDBC();
 		udao = new UserDaoJDBC();
 		rdao = new RealEstateDaoJDBC();
 		pdao = new PictureDaoJDBC();
@@ -49,13 +52,18 @@ public class SearchDaoJDBC extends AbstractDaoJDBC implements SearchDao {
 
 			if (sc.getCityId() != 0) {
 				otherReq += " AND c.id IN ";
-				if (sc.getDistance() != 0)
+				City c = cdao.read(sc.getCityId());
+
+				if (sc.getDistance() != 0) {
+					sc.setDistance(Math.min(50, sc.getDistance()));
+
 					otherReq += " (SELECT id FROM city c2 " + " WHERE greatcircle(c2.latitude, c2.longitude,"
-							+ sc.getLatitude() + "," + sc.getLongitude() + ") <= " + sc.getDistance()
-							+ " OR greatcircle(c2.latitude, c2.longitude," + sc.getLatitude() + "," + sc.getLongitude()
+							+ c.getLatitude() + "," + c.getLongitude() + ") <= " + sc.getDistance()
+							+ " OR greatcircle(c2.latitude, c2.longitude," + c.getLatitude() + "," + c.getLongitude()
 							+ ") IS NULL)";
+				}
 				else
-					otherReq += "(SELECT id from city where id = " + sc.getCityId() + ")";
+					otherReq += "(" + sc.getCityId() + ")";
 			}
 
 			if (sc.getQuery() != null)

@@ -12,11 +12,6 @@ public class CommercialProperty extends RealEstate {
 	public CommercialProperty() {}
 
 	@Override
-	public String getType() {
-		return "Commercial";
-	}
-
-	@Override
 	public String toFrench() {
 		return "Local Commercial";
 	}

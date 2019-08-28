@@ -6,7 +6,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.edu.realestate.exceptions.RealEstateException;
 import com.edu.realestate.mapping.AdvertisementMapper;
+import com.edu.realestate.model.AdStatus;
 import com.edu.realestate.model.Advertisement;
 import com.edu.realestate.model.Advertiser;
 import com.edu.realestate.model.Picture;
@@ -136,5 +138,25 @@ public class AdvertisementDaoJDBC extends AbstractDaoJDBC implements Advertiseme
 
 		return lads;
 	}
+
+	@Override
+	public void validateAdvertisement(int adId) throws RealEstateException {
+	}
+
+	@Override
+	public void refuseAdvertisement(int adId, String refusedComment) throws RealEstateException {
+	}
+
+	@Override
+	public List<Advertisement> findAdvertisementsByStatus(AdStatus status) throws RealEstateException {
+		return null; 
+	}
+
+	@Override
+	public Advertisement findAdvertisementByNumber(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

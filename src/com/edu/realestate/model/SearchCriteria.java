@@ -26,8 +26,6 @@ public class SearchCriteria {
 	private boolean digicode;
 	private boolean cellar;
 	private boolean swimmingPool;
-	private double longitude;
-	private double latitude;
 	private int distance;
 	private String sort;
 	private int limit;
@@ -106,9 +104,6 @@ public class SearchCriteria {
 	public void setRoomsMax(int roomsMax) {
 		this.roomsMax = roomsMax;
 	}
-	public double getLongitude() {
-		return longitude;
-	}
 	public char getEnergyLevel() {
 		return energyLevel;
 	}
@@ -120,9 +115,6 @@ public class SearchCriteria {
 	}
 	public void setGasLevel(char gasLevel) {
 		this.gasLevel = gasLevel;
-	}
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
 	}
 	public boolean hasElevator() {
 		return elevator;
@@ -184,12 +176,6 @@ public class SearchCriteria {
 	public void setSwimmingPool(boolean swimmingPool) {
 		this.swimmingPool = swimmingPool;
 	}
-	public double getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
 	public int getDistance() {
 		return distance;
 	}
@@ -220,7 +206,6 @@ public class SearchCriteria {
 	public void setExclude(int exclude) {
 		this.exclude = exclude;
 	}
-	
 
 	@Override
 	public String toString() {
@@ -230,9 +215,10 @@ public class SearchCriteria {
 				+ ", roomsMin=" + roomsMin + ", roomsMax=" + roomsMax + ", energyLevel=" + energyLevel + ", gasLevel="
 				+ gasLevel + ", elevator=" + elevator + ", intercom=" + intercom + ", balcony=" + balcony + ", terrace="
 				+ terrace + ", garage=" + garage + ", parking=" + parking + ", alarm=" + alarm + ", digicode="
-				+ digicode + ", cellar=" + cellar + ", swimmingPool=" + swimmingPool + ", longitude=" + longitude
-				+ ", latitude=" + latitude + ", distance=" + distance + ", sort=" + sort + ", limit=" + limit
-				+ ", offset=" + offset + ", exclude=" + exclude + "]";
+				+ digicode + ", cellar=" + cellar + ", swimmingPool=" + swimmingPool + ", distance=" + distance
+				+ ", sort=" + sort + ", limit=" + limit + ", offset=" + offset + ", exclude=" + exclude + "]";
 	}
+
+
 	
 }

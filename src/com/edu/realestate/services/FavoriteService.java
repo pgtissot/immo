@@ -10,6 +10,6 @@ public interface FavoriteService {
 
 	boolean isFavAd(String username, int advertisementId);
 	
-	void removeFavAds(Integer id);
+	void removeFavAd(Integer id);
 
 }

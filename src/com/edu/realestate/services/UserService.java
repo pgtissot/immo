@@ -11,8 +11,7 @@ public interface UserService {
 	
 	void register(Moderator mod);
 	
-	User authenticate(String login, String password)
-		throws AuthenticationException ;
+	User authenticate(String login, String password) throws AuthenticationException;
 
 	void disconnect(User u);
 	

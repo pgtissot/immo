@@ -1,70 +1,37 @@
 package com.edu.realestate.dao;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import com.edu.realestate.model.House;
 
+@Repository
 public class HouseDaoHib extends AbstractDaoHib implements HouseDao {
-
-	private static final Logger LOGGER = LogManager.getLogger(HouseDaoHib.class);
 
 	@Override
 	public void create(House h) {
-		Transaction transaction = null;
-		try (Session session = getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.save(h);
-			transaction.commit();
-		} catch (Exception e) {
-			LOGGER.error("Impossible de créer une House");
-			if (transaction != null) transaction.rollback();
-			e.printStackTrace();
-		}
+		Session session = getSession();
+		session.save(h);
 	}
 
 	@Override
 	public House read(Integer id) {
+		Session session = getSession();
 		House house = null;
-
-		try (Session session = getSessionFactory().openSession()) {
-			house = session.load(House.class, id);
-		} catch (Exception e) {
-			LOGGER.error("Impossible de lire la House " + id);
-			e.printStackTrace();
-		}
-
+		house = session.load(House.class, id);
 		return house;
 	}
 
 	@Override
 	public void update(House h) {
-		Transaction transaction = null;
-		try (Session session = getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.save(h);
-			transaction.commit();
-		} catch (Exception e) {
-			LOGGER.error("Impossible d'updater la House " + h.getId());
-			if (transaction != null) transaction.rollback();
-			e.printStackTrace();
-		}
+		Session session = getSession();
+		session.save(h);
 	}
 
 	@Override
 	public void delete(House h) {
-		Transaction transaction = null;
-		try (Session session = getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.delete(h);
-			transaction.commit();
-		} catch (Exception e) {
-			LOGGER.error("Impossible d'effacer la House " + h.getId());
-			if (transaction != null) transaction.rollback();
-			e.printStackTrace();
-		}
+		Session session = getSession();
+		session.delete(h);
 	}
 
 }

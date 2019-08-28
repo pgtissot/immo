@@ -1,83 +1,46 @@
 package com.edu.realestate.dao;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.List;
+
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import com.edu.realestate.model.Favorite;
 
+@Repository
 public class FavoriteDaoHib extends AbstractDaoHib implements FavoriteDao {
-
-	private static final Logger LOGGER = LogManager.getLogger(FavoriteDaoHib.class);
 
 	@Override
 	public void create(Favorite fav) {
-		Transaction transaction = null;
-		try (Session session = getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.save(fav);
-			transaction.commit();
-		} catch (Exception e) {
-			LOGGER.error("Impossible de créer un Favorite");
-			if (transaction != null) transaction.rollback();
-			e.printStackTrace();
-		}
+		Session session = getSession();
+		session.save(fav);
 	}
 
 	@Override
 	public Favorite read(Integer id) {
+		Session session = getSession();
 		Favorite fav = null;
-
-		try (Session session = getSessionFactory().openSession()) {
-			fav = session.load(Favorite.class, id);
-		} catch (Exception e) {
-			LOGGER.error("Impossible de lire le Favorite " + id);
-			e.printStackTrace();
-		}
-
+		fav = session.load(Favorite.class, id);
 		return fav;
 	}
 
 	@Override
 	public Favorite read(String username, int advertisementId) {
-
-		Favorite fav = null;
-		
-		try (Session session = getSessionFactory().openSession()) {
-			fav = session.createQuery("FROM Favorite WHERE username = '" + username + "' AND ad.id = " + advertisementId, Favorite.class).getSingleResult();
-		} catch (Exception e) {
-			LOGGER.error("Impossible de lire le Favorite du couple " + username + "-" + advertisementId);
-			e.printStackTrace();
-		}
-		
-		return fav;
+		Session session = getSession();
+		List<Favorite> favs = session.createQuery("FROM Favorite WHERE username = '" + username + "' AND advertisement.id = " + advertisementId, Favorite.class).getResultList();
+		return (favs.size() == 0 ? null : favs.get(0));
 	}
 
 	@Override
 	public void update(Favorite fav) {
-		Transaction transaction = null;
-		try (Session session = getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.save(fav);
-			transaction.commit();
-		} catch (Exception e) {
-			LOGGER.error("Impossible d'updater le Favorite " + fav.getId());
-			if (transaction != null) transaction.rollback();
-		}
+		Session session = getSession();
+		session.save(fav);
 	}
 
 	@Override
 	public void delete(Favorite fav) {
-		Transaction transaction = null;
-		try (Session session = getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.delete(fav);
-			transaction.commit();
-		} catch (Exception e) {
-			LOGGER.error("Impossible d'effacer le Favorite " + fav.getId());
-			if (transaction != null) transaction.rollback();
-		}
+		Session session = getSession();
+		session.delete(fav);
 	}
 
 	@Override

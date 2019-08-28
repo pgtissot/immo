@@ -14,7 +14,6 @@ public class PictureDaoJDBC extends AbstractDaoJDBC implements PictureDao {
 
 	}
 
-	@SuppressWarnings("resource")
 	@Override
 	public Picture read(Integer id) {
 		Picture picture = null;
@@ -24,13 +23,11 @@ public class PictureDaoJDBC extends AbstractDaoJDBC implements PictureDao {
 			String req = "SELECT * FROM picture WHERE id = " + id;
 
 			ResultSet rs = st.executeQuery(req);
-			picture = new Picture();
 
 			if (rs.next()) {
+				picture = new Picture();
 				picture.setId(rs.getInt("id"));
 				picture.setData(rs.getBlob("content").getBytes(1, (int)rs.getBlob("content").length()));
-			} else {
-				picture.setData(new String("images/image-not-found.jpg").getBytes());
 			}
 		} catch (Exception e) {
 			System.out.println("PictureDaoJDBC error : " + e.getLocalizedMessage());
@@ -65,11 +62,6 @@ public class PictureDaoJDBC extends AbstractDaoJDBC implements PictureDao {
 			while (rs.next()) {
 				picture.setId(rs.getInt("id"));
 				picture.setData(rs.getBlob("content").getBytes(1, (int)rs.getBlob("content").length()));
-				list.add(picture);
-			}
-			
-			if (list.size() == 0) {
-				picture.setData(new String("images/image-not-found.jpg").getBytes());
 				list.add(picture);
 			}
 				

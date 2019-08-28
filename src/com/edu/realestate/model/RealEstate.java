@@ -107,8 +107,10 @@ public abstract class RealEstate {
 		return result;
 	}
 
-	public abstract String getType();
-
+	public String getType() {
+		return getClass().getSimpleName();
+	}
+	
 	public abstract String toFrench();
 	
 	public String priceFrench() {

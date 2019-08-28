@@ -1,4 +1,4 @@
-package com.edu.util;
+package com.edu.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;

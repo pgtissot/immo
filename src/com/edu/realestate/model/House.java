@@ -46,7 +46,7 @@ public class House extends RealEstate {
 		this.swimmingPool = swimmingPool;
 	}
 
-	public int getRooms() {
+	public Integer getRooms() {
 		return rooms;
 	}
 
@@ -54,7 +54,7 @@ public class House extends RealEstate {
 		this.rooms = rooms;
 	}
 
-	public int getLandArea() {
+	public Integer getLandArea() {
 		return landArea;
 	}
 
@@ -100,11 +100,6 @@ public class House extends RealEstate {
 
 	public void setSwimmingPool(boolean swimmingPool) {
 		this.swimmingPool = swimmingPool;
-	}
-
-	@Override
-	public String getType() {
-		return "House";
 	}
 
 	@Override

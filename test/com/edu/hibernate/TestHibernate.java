@@ -1,4 +1,4 @@
-package com.edu.util;
+package com.edu.hibernate;
 
 import java.util.List;
 

@@ -42,14 +42,10 @@ public class TestDaoHib {
 //		PictureDao pdao = new PictureDaoHib();
 //		System.out.println(pdao.getAllPicturesByAd(2));
 		
-		SearchDao sdao1 = new SearchDaoJDBC();
 		SearchDao sdao2 = new SearchDaoHib();
 		SearchCriteria sc = new SearchCriteria();
 		sc.setRealEstateType(RealEstateType.Apartment);
 		sc.setCityId(1370);
-		System.out.println(sdao1.search(sc).size());
-		System.out.println("Press Any Key To Continue...");
-        new java.util.Scanner(System.in).nextLine();
 		System.out.println(sdao2.search(sc).size());
 		
 		

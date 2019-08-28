@@ -52,17 +52,8 @@ public class TestServices {
 		// AdvertisementService Test
 		AdvertisementService advertisementService = new AdvertisementServiceMock();
 
-		City c = new City(1, "Paris", "75000");
-		List<Advertisement> la = advertisementService.findAdvertisements(c);
-		for (Advertisement a : la)
-			System.out.println(a);
-		System.out.println("-------------------------");
-
 		// RealEstateFactory Test
 		RealEstateFactory ref = new RealEstateFactory();
-		
-		RealEstate reh = ref.getRealEstate(RealEstateType.House, c);
-		System.out.println(reh);
 
 		RealEstate rea = ref.getRealEstate(RealEstateType.Apartment);
 		System.out.println(rea);

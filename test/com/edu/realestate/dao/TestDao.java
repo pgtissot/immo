@@ -29,8 +29,8 @@ public class TestDao {
 //		System.out.println(apartment);
 		
 		AdvertisementDao ddao = new AdvertisementDaoJDBC();
-		Advertisement advertisement = ddao.read(2);
-//		System.out.println(advertisement);
+		Advertisement advertisement = ddao.read(1792);
+		System.out.println(advertisement);
 		
 	}	
 }

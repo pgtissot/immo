@@ -12,13 +12,8 @@ public class OtherProperty extends RealEstate {
 	public OtherProperty() {}
 
 	@Override
-	public String getType() {
-		return "Other";
-	}
-
-	@Override
 	public String toFrench() {
-		return "Appartement";
+		return "Autre";
 	}
 
 	public String toString() {

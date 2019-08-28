@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,9 +20,9 @@ public class Favorite {
 	@Column(name="owner")
 	private String username;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="advertisement_id")
-	private Advertisement ad;
+	private Advertisement advertisement;
 
 	private int priority;
 	private String comments;
@@ -33,7 +33,7 @@ public class Favorite {
 	public Favorite(int id, String username, Advertisement ad, int priority, String comments) {
 		this.id = id;
 		this.username = username;
-		this.ad = ad;
+		this.advertisement = ad;
 		this.priority = priority;
 		this.comments = comments;
 	}
@@ -55,11 +55,11 @@ public class Favorite {
 	}
 
 	public Advertisement getAd() {
-		return ad;
+		return advertisement;
 	}
 
 	public void setAd(Advertisement ad) {
-		this.ad = ad;
+		this.advertisement = ad;
 	}
 
 	public int getPriority() {
@@ -80,7 +80,7 @@ public class Favorite {
 
 	@Override
 	public String toString() {
-		return "Favorite [id=" + id + ", username=" + username + ", ad=" + ad + ", priority=" + priority + ", comments="
+		return "Favorite [id=" + id + ", user=" + username + ", ad=" + advertisement + ", priority=" + priority + ", comments="
 				+ comments + "]";
 	}
 	
