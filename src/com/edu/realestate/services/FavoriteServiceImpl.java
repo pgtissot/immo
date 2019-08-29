@@ -1,5 +1,7 @@
 package com.edu.realestate.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +50,12 @@ public class FavoriteServiceImpl implements FavoriteService {
 	@Transactional(readOnly=false)
 	public void removeFavAd(Integer id) {
 		fdao.delete(fdao.read(id));
+	}
+
+	@Override
+	public List<Favorite> getFavByUser(String username) {
+		return fdao.getFavByUser(username);
+		
 	}
 
 }

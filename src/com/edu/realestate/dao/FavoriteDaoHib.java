@@ -48,4 +48,11 @@ public class FavoriteDaoHib extends AbstractDaoHib implements FavoriteDao {
 		return read(username, advertisementId) != null;
 	}
 
+	@Override
+	public List<Favorite> getFavByUser(String username) {
+		Session session = getSession();
+		List<Favorite> favs = session.createQuery("FROM Favorite WHERE username = '" + username, Favorite.class).getResultList();
+		return favs;
+	}
+
 }

@@ -2,6 +2,8 @@ package com.edu.realestate.dao;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
+
 import com.edu.realestate.model.Advertisement;
 import com.edu.realestate.model.Favorite;
 import com.edu.realestate.model.Utils;
@@ -88,6 +90,12 @@ public class FavoriteDaoJDBC extends AbstractDaoJDBC implements FavoriteDao {
 	@Override
 	public boolean isFavAd(String username, int advertisementId) {
 		return read(username, advertisementId) != null;
+	}
+
+	@Override
+	public List<Favorite> getFavByUser(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

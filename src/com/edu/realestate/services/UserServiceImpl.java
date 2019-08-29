@@ -42,4 +42,12 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public void update(User u) {
+		udao.update(u);		
+	}
+	
+	public User read(String username) {
+		return udao.read(username);
+	}
 }

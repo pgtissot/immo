@@ -14,5 +14,9 @@ public interface UserService {
 	User authenticate(String login, String password) throws AuthenticationException;
 
 	void disconnect(User u);
+		
+	void update(User u);
+	
+	User read(String username);
 	
 }
