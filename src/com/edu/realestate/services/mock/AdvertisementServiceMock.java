@@ -6,6 +6,7 @@ import java.util.Map;
 import com.edu.realestate.exceptions.RealEstateException;
 import com.edu.realestate.model.AdStatus;
 import com.edu.realestate.model.Advertisement;
+import com.edu.realestate.model.AdvertisementModel;
 import com.edu.realestate.model.City;
 import com.edu.realestate.model.Picture;
 import com.edu.realestate.services.AdvertisementService;
@@ -75,6 +76,24 @@ public class AdvertisementServiceMock implements AdvertisementService {
 
 	@Override
 	public Picture findPictureById(int id) throws RealEstateException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> findAdNumbers(String input, boolean exact) throws RealEstateException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Advertisement createAdFromModel(AdvertisementModel am) throws RealEstateException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Advertisement> findAdvertisementByCity(int cityId) throws RealEstateException {
 		// TODO Auto-generated method stub
 		return null;
 	}

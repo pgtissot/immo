@@ -158,5 +158,23 @@ public class AdvertisementDaoJDBC extends AbstractDaoJDBC implements Advertiseme
 		return null;
 	}
 
+	@Override
+	public List<String> listMatching(String comparator, boolean exact) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Advertisement> findAdvertisementByCity(int cityId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Advertisement readAllStatus(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

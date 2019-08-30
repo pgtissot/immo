@@ -21,7 +21,7 @@ public class CityDaoHib extends AbstractDaoHib implements CityDao {
 	public City read(Integer id) {
 		Session session = getSession();
 		City city = null;
-		city = session.load(City.class, id);
+		city = session.get(City.class, id);
 		return city;
 	}
 

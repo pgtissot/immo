@@ -49,5 +49,17 @@ public class UserServiceMock implements UserService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public User read(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(User u) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

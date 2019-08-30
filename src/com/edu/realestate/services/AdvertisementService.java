@@ -6,6 +6,7 @@ import java.util.Map;
 import com.edu.realestate.exceptions.RealEstateException;
 import com.edu.realestate.model.AdStatus;
 import com.edu.realestate.model.Advertisement;
+import com.edu.realestate.model.AdvertisementModel;
 import com.edu.realestate.model.City;
 import com.edu.realestate.model.Picture;
 import com.edu.realestate.yelp.YelpResult;
@@ -15,6 +16,10 @@ public interface AdvertisementService {
 	Advertisement findAdvertisementById(int id) throws RealEstateException;
 
 	Advertisement findAdvertisementByNumber(String adNumber) throws RealEstateException;
+	
+	List<Advertisement> findAdvertisementByCity(int cityId) throws RealEstateException;
+
+	Advertisement createAdFromModel(AdvertisementModel am) throws RealEstateException;
 
 	void placeAdvertisement(Advertisement ad) throws RealEstateException;
 
@@ -33,5 +38,7 @@ public interface AdvertisementService {
 	YelpResult findYelpData(City city) throws Exception;
 
 	Map<String, Long> getAdvertisementsData() throws RealEstateException;
+	
+	public List<String> findAdNumbers(String input, boolean exact) throws RealEstateException;
 
 }

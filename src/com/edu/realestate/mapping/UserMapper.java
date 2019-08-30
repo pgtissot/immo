@@ -16,7 +16,8 @@ public class UserMapper {
 		
 		switch (rs.getString("user_type")) {
 		case "M" :
-			user = new Moderator(rs.getString("username"), rs.getString("password"), rs.getString("name"));
+			user = new Moderator(rs.getString("username"), rs.getString("password"), rs.getString("title"),
+					rs.getString("first_name"), rs.getString("last_name"), rs.getString("phone"), rs.getString("name"));
 			break;
 		default :
 			user = new Advertiser(rs.getString("username"), rs.getString("password"), rs.getString("title"),

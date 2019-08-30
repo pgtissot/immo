@@ -16,8 +16,8 @@ public class AdvertisementDaoHib extends AbstractDaoHib implements Advertisement
 
 	@Override
 	public void create(Advertisement adv) {
-		// TODO Auto-generated method stub
-
+		Session session = getSession();
+		session.save(adv);
 	}
 
 	@Override
@@ -30,15 +30,23 @@ public class AdvertisementDaoHib extends AbstractDaoHib implements Advertisement
 	}
 
 	@Override
-	public void update(Advertisement adv) {
-		// TODO Auto-generated method stub
+	public Advertisement readAllStatus(Integer id) {
+		Session session = getSession();
+		Advertisement advertisement = null;
+		advertisement = session.createQuery("from Advertisement WHERE id = " + id + " AND realEstate.available = 'Y'", Advertisement.class).getSingleResult();
+		return advertisement;
+	}
 
+	@Override
+	public void update(Advertisement adv) {
+		Session session = getSession();
+		session.save(adv);
 	}
 
 	@Override
 	public void delete(Advertisement adv) {
-		// TODO Auto-generated method stub
-
+		Session session = getSession();
+		session.delete(adv);
 	}
 	
 	@Override
@@ -50,6 +58,15 @@ public class AdvertisementDaoHib extends AbstractDaoHib implements Advertisement
 		return advertisement;
 	}
 
+	@Override
+	public List<Advertisement> findAdvertisementByCity(int cityId) {
+		Session session = getSession();
+		List<Advertisement> lads = null;
+		lads = session.createQuery("FROM Advertisement WHERE realEstate.city.id = " + cityId + "' AND realEstate.available = 'Y' AND status = 'Validated'",
+												Advertisement.class).getResultList();
+		return lads;
+	}
+	
 	@Override
 	public long countSaleAds() {
 		Session session = getSession();
@@ -79,14 +96,14 @@ public class AdvertisementDaoHib extends AbstractDaoHib implements Advertisement
 
 	@Override
 	public void validateAdvertisement(int adId) throws RealEstateException {
-		Advertisement ad = read(adId);
+		Advertisement ad = readAllStatus(adId);
 		ad.setStatus(AdStatus.Validated);
 		update(ad);
 	}
 
 	@Override
 	public void refuseAdvertisement(int adId, String refusedComment) throws RealEstateException {
-		Advertisement ad = read(adId);
+		Advertisement ad = readAllStatus(adId);
 		ad.setStatus(AdStatus.Refused);
 		ad.setRefusedComment(refusedComment);
 		update(ad);
@@ -98,6 +115,22 @@ public class AdvertisementDaoHib extends AbstractDaoHib implements Advertisement
 		List<Advertisement> lads = new ArrayList<>();
 		lads = session.createQuery("FROM Advertisement WHERE status = '" + status.name() + "'", Advertisement.class).list();
 		return lads;
+	}
+
+	@Override
+	public List<String> listMatching(String comparator, boolean exact) {
+		Session session = getSession();
+		List<String> list = new ArrayList<>();
+		
+		String where = "WHERE ";
+		if (!exact)
+			where += "adNumber LIKE '%" + comparator + "%'";
+		else
+			where += "adNumber = '" + comparator + "'";
+
+		list = session.createQuery("SELECT adNumber FROM Advertisement " + where, String.class).list();
+		return list;
+
 	}
 
 }

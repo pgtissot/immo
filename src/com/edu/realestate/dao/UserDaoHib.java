@@ -25,14 +25,14 @@ public class UserDaoHib extends AbstractDaoHib implements UserDao {
 	public User read(String username) {
 		Session session = getSession();
 		User user = null;
-		user = session.load(User.class, username);
+		user = session.get(User.class, username);
 		return user;
 	}
 
 	@Override
 	public void update(User u) {
 		Session session = getSession();
-		session.save(u);
+		session.saveOrUpdate(u);
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import com.edu.realestate.exceptions.RealEstateException;
 import com.edu.realestate.model.Advertisement;
 import com.edu.realestate.model.Moderator;
 import com.edu.realestate.services.AdvertisementService;
+import com.edu.realestate.services.FavoriteService;
 import com.edu.realestate.services.UserService;
 
 public class SpringTest {
@@ -41,14 +42,17 @@ public class SpringTest {
 
 //		System.out.println(cdao);
 		
-		AdvertisementService as = springCtx.getBean(AdvertisementService.class);
-		System.out.println(as.findAdvertisementById(1792));
+//		AdvertisementService as = springCtx.getBean(AdvertisementService.class);
+//		System.out.println(as.findAdvertisementById(1792));
 //		List<Advertisement> lads = as.findLatestAds(5); 
 //		for (Advertisement a : lads)
 //			System.out.println(a.getId());
 		
 //		UserService us = springCtx.getBean(UserService.class);
 //		us.register(new Moderator("blah", "blah", "blah"));
+		
+		FavoriteService fs = springCtx.getBean(FavoriteService.class);
+		System.out.println(fs.getFavByUser("pgthebest@blah.fr"));
 
 		((ConfigurableApplicationContext)springCtx).close(); 
 	}

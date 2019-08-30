@@ -1,5 +1,6 @@
 package com.edu.realestate.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,14 +10,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.realestate.dao.AdvertisementDao;
+import com.edu.realestate.dao.CityDao;
 import com.edu.realestate.dao.PictureDao;
 import com.edu.realestate.dao.RealEstateDao;
 import com.edu.realestate.dao.SearchDao;
+import com.edu.realestate.dao.UserDao;
 import com.edu.realestate.exceptions.RealEstateException;
+import com.edu.realestate.mapping.AdvertisementMapper;
+import com.edu.realestate.mapping.RealEstateMapper;
 import com.edu.realestate.model.AdStatus;
 import com.edu.realestate.model.Advertisement;
+import com.edu.realestate.model.AdvertisementModel;
+import com.edu.realestate.model.Advertiser;
 import com.edu.realestate.model.City;
 import com.edu.realestate.model.Picture;
+import com.edu.realestate.model.RealEstate;
 import com.edu.realestate.yelp.YelpResult;
 import com.edu.realestate.yelp.YelpSearch;
 
@@ -25,7 +33,7 @@ import com.edu.realestate.yelp.YelpSearch;
 public class AdvertisementServiceImpl implements AdvertisementService {
 
 	@Autowired
-	SearchDao sdao;
+	CityDao cdao;
 
 	@Autowired
 	AdvertisementDao adao;
@@ -36,6 +44,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 	@Autowired
 	RealEstateDao rdao;
 
+	@Autowired
+	SearchDao sdao;
+
+	@Autowired
+	UserDao udao;
+
+	
 	@Override
 	public Advertisement findAdvertisementById(int id) throws RealEstateException {
 		return adao.read(id);
@@ -47,8 +62,28 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 	}
 
 	@Override
+	public List<Advertisement> findAdvertisementByCity(int cityId) throws RealEstateException {
+		return adao.findAdvertisementByCity(cityId);
+	}
+
+	@Override
+	public Advertisement createAdFromModel(AdvertisementModel am) throws RealEstateException {
+		City city = cdao.read(am.getCityId());
+		RealEstate re = RealEstateMapper.AdModelToRealEstate(am, city);
+		Advertiser ad = (Advertiser)udao.read(am.getUsername());
+		List<Picture> pictures = new ArrayList<>();
+//		Picture p = new Picture();
+//		pictures.add(p);
+		Advertisement adv = AdvertisementMapper.AdModelToAdvertisement(am, ad, re, pictures);
+		return adv;
+	}
+
+	@Override
 	@Transactional(readOnly=false)
 	public void placeAdvertisement(Advertisement ad) throws RealEstateException {
+		rdao.create(ad.getRealEstate());
+		for (Picture p : ad.getPictures())
+			pdao.create(p);
 		adao.create(ad);
 	}
 
@@ -68,11 +103,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 	}
 
 	@Override
+	@Transactional(readOnly=false)
 	public void validateAdvertisement(int adId) throws RealEstateException {
 		adao.validateAdvertisement(adId);
 	}
 
 	@Override
+	@Transactional(readOnly=false)
 	public void refuseAdvertisement(int adId, String refusedComment) throws RealEstateException {
 		adao.refuseAdvertisement(adId, refusedComment);
 		
@@ -98,6 +135,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 		
 		return adsData;
 
+	}
+
+	@Override
+	public List<String> findAdNumbers(String input, boolean exact) throws RealEstateException {
+		return adao.listMatching(input, exact);
 	}
 
 }

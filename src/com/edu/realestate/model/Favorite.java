@@ -80,7 +80,7 @@ public class Favorite {
 
 	@Override
 	public String toString() {
-		return "Favorite [id=" + id + ", user=" + username + ", ad=" + advertisement + ", priority=" + priority + ", comments="
+		return "Favorite [id=" + id + ", username=" + username + ", ad=" + advertisement + ", priority=" + priority + ", comments="
 				+ comments + "]";
 	}
 	

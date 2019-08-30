@@ -24,7 +24,7 @@ public class TestServices {
 		// UserService Test
 		UserService userService = new UserServiceMock();
 
-		Moderator mod = new Moderator("Tartempion", "123456", "Destructor");
+		Moderator mod = new Moderator("Tartempion", "123456", "Yay", "Oops", "Hey", "What", "Destructor");
 		userService.register(mod);
 
 		Advertiser adv = new Advertiser("Globubill", "1", "Seller", "Zorglub", "Biglodur", "0123456789");

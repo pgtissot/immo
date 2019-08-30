@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 	
+	@Transactional(readOnly=false)
 	public void update(User u) {
 		udao.update(u);		
 	}

@@ -8,7 +8,11 @@ import com.edu.realestate.model.Advertisement;
 
 public interface AdvertisementDao extends AbstractDao<Advertisement> {
 
+	Advertisement readAllStatus(Integer id);
+	
 	Advertisement findAdvertisementByNumber(String name);
+	
+	List<Advertisement> findAdvertisementByCity(int cityId);
 
 	void validateAdvertisement(int adId) throws RealEstateException;
 	
@@ -18,6 +22,8 @@ public interface AdvertisementDao extends AbstractDao<Advertisement> {
 
 	List<Advertisement> getLatest(int number);
 
+	List<String> listMatching(String comparator, boolean exact);
+	
 	long countSaleAds();
 
 	long countRentAds();
